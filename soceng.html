@@ -112,17 +112,17 @@
     </section>
 
     <section class="choices" id="choices" aria-label="Choose your response">
-      <button class="choice" data-outcome="bad" data-points="-50" data-reply="Sure, my username is divya.t and my password is P@ss1234." data-feedback="Oh no! You handed over your credentials. The attacker now has access to your email and files." aria-describedby="helper1">
-        ✅ Sure, here are my credentials.
+      <button class="choice" data-outcome="bad" data-points="-50" data-reply="Sure, my username is user and my password is P@ss1234." data-feedback="Oh no! You handed over your credentials. The attacker now has access to your email and files." aria-describedby="helper1">
+         Sure, here are my credentials.
       </button>
       <small id="helper1" class="subtitle">(This is a trap—IT will never ask for your password.)</small>
 
       <button class="choice" data-outcome="ok" data-points="100" data-reply="Sorry, I can’t share my password. Can you confirm this request with HR or my manager first?" data-feedback="Great call! IT will never ask for your password over chat. Always verify first.">
-        🛡️ I won’t share that. Please verify via HR/manager.
+         I won’t share that. Please verify via HR/manager.
       </button>
 
       <button class="choice" data-outcome="warn" data-points="50" data-reply="[User ignored the message.]" data-feedback="Ignoring kept you safe, but reporting would help the security team respond.">
-        🚫 Ignore the message.
+         Ignore the message.
       </button>
     </section>
 
@@ -130,6 +130,7 @@
       <div class="pill score" id="score" aria-live="polite">Score: 0</div>
       <div class="pill" id="resultPill">Status: —</div>
       <button id="resetBtn" class="pill" title="Restart level">Reset</button>
+      <button id="next" class="pill" title="Next level" href="phar.html">Next</button>
     </footer>
   </main>
 
