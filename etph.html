@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 14: Evil Twin Phishing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 14: Evil Twin Phishing</h2>
@@ -12,8 +13,8 @@
     <p><b>WiFi Portal:</b> "Welcome to Sunderland Airport! Get free internet access by logging in with your Google or Facebook account."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! You connected to an \'Evil Twin\' network. It\'s a fake Wi-Fi hotspot set up by a hacker. The login page is a phishing form to steal your Google credentials. They can then see all your internet traffic.')">Log in with your Google account</button>
-  <button onclick="alert('✅ Correct! Be wary of public Wi-Fi. An evil twin attack lures you onto a malicious network. Never log in with sensitive accounts on a captive portal and always confirm the official network name with staff if possible.')">Disconnect and ask airport staff for the official Wi-Fi name</button>
+  <button onclick="alert('❌ Wrong! You connected to an \'Evil Twin\' network. It\'s a fake Wi-Fi hotspot set up by a hacker. The login page is a phishing form to steal your Google credentials. They can then see all your internet traffic.'); proceedToNextLevel();">Log in with your Google account</button>
+  <button onclick="alert('✅ Correct! Be wary of public Wi-Fi. An evil twin attack lures you onto a malicious network. Never log in with sensitive accounts on a captive portal and always confirm the official network name with staff if possible.'); proceedToNextLevel();">Disconnect and ask airport staff for the official Wi-Fi name</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 4: Website Spoofing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 4: Website Spoofing</h2>
@@ -12,8 +13,8 @@
     <p><b>Website:</b> "Flash Sale! Enter your name, address, and credit card information to claim this limited-time offer!"</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! This is a spoofed website. Scammers create fake e-commerce sites with unbelievable deals to harvest credit card details. You would be charged and receive nothing.')">Enter your payment information</button>
-  <button onclick="alert('✅ Correct! If a deal seems too good to be true, it probably is. Unfamiliar URLs and extreme discounts are major warning signs of a spoofed retail website.')">Close the website</button>
+  <button onclick="alert('❌ Wrong! This is a spoofed website. Scammers create fake e-commerce sites with unbelievable deals to harvest credit card details. You would be charged and receive nothing.'); proceedToNextLevel();">Enter your payment information</button>
+  <button onclick="alert('✅ Correct! If a deal seems too good to be true, it probably is. Unfamiliar URLs and extreme discounts are major warning signs of a spoofed retail website.'); proceedToNextLevel();">Close the website</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

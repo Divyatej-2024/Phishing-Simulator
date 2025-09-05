@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 10: Vishing (Voice Phishing)</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 10: Vishing (Voice Phishing)</h2>
@@ -12,8 +13,8 @@
     <p><b>Robocall:</b> "[BEEP] This is an urgent message from HM Revenue and Customs. An arrest warrant has been issued under your name. To avoid legal consequences, press 1 now."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! Government agencies like HMRC will never use threatening robocalls. This is a vishing scam designed to create panic and rush you into making a payment, often through untraceable methods like gift cards.')">Press 1 to speak to an agent</button>
-  <button onclick="alert('✅ Correct! This is a high-pressure scare tactic. The correct action is to hang up immediately. If you are concerned about your taxes, you should independently find the official HMRC contact number and call them yourself.')">Hang up the phone</button>
+  <button onclick="alert('❌ Wrong! Government agencies like HMRC will never use threatening robocalls. This is a vishing scam designed to create panic and rush you into making a payment, often through untraceable methods like gift cards.'); proceedToNextLevel();">Press 1 to speak to an agent</button>
+  <button onclick="alert('✅ Correct! This is a high-pressure scare tactic. The correct action is to hang up immediately. If you are concerned about your taxes, you should independently find the official HMRC contact number and call them yourself.'); proceedToNextLevel();">Hang up the phone</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

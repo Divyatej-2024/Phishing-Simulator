@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 5: Spear Phishing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 5: Spear Phishing</h2>
@@ -12,8 +13,8 @@
     <p><b>From: HR Department</b><br>"Hi [Player Name], hope you had a great time at the Synergy 2025 conference! Please log in to our new portal via this link to submit your expense report. Your old credentials will work."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! Clicking the link would take you to a fake login page designed to steal your company credentials. The specific details about the conference make it seem legitimate, but it\'s a trap.')">Click the link and log in</button>
-  <button onclick="alert('✅ Correct! This is a spear phishing attack. It uses personal information to gain your trust. You should never click links in unexpected emails. Instead, navigate to the company portal through your usual bookmarks or internal company page.')">Ignore the link and go to the official portal manually</button>
+  <button onclick="alert('❌ Wrong! Clicking the link would take you to a fake login page designed to steal your company credentials. The specific details about the conference make it seem legitimate, but it\'s a trap.'); proceedToNextLevel();">Click the link and log in</button>
+  <button onclick="alert('✅ Correct! This is a spear phishing attack. It uses personal information to gain your trust. You should never click links in unexpected emails. Instead, navigate to the company portal through your usual bookmarks or internal company page.'); proceedToNextLevel();">Ignore the link and go to the official portal manually</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

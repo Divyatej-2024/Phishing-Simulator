@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 3: Whaling</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 3: Whaling</h2>
@@ -12,8 +13,8 @@
     <p><b>From: CEO@yourcompany.com</b><br>"I need you to wire $50,000 to the attached account details immediately. This is critical for the Project Alpha acquisition. Do not speak to anyone about this until the deal is public. Let me know once it's done."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! High-pressure tactics and requests to bypass normal procedures are huge red flags. Sending the money would result in a major financial loss for the company.')">Process the wire transfer as requested</button>
-  <button onclick="alert('✅ Correct! This is a whaling attack, targeting a high-value employee. You must always verify such unusual, high-stakes requests through a different communication channel, like a direct phone call to the CEO.')">Call the CEO on her mobile to verbally confirm</button>
+  <button onclick="alert('❌ Wrong! High-pressure tactics and requests to bypass normal procedures are huge red flags. Sending the money would result in a major financial loss for the company.');proceedToNextLevel();">Process the wire transfer as requested</button>
+  <button onclick="alert('✅ Correct! This is a whaling attack, targeting a high-value employee. You must always verify such unusual, high-stakes requests through a different communication channel, like a direct phone call to the CEO.'); proceedToNextLevel();">Call the CEO on her mobile to verbally confirm</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 7: Email Phishing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 7: Email Phishing</h2>
@@ -12,8 +13,8 @@
     <p><b>From: Mail Service</b><br>"Dear Valued Customer, We regret to inform you that we cud not deliver your parcel today. To shedule a new delivery please click here immediatly or your parcel will be returned."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! Poor grammar, a generic greeting, and a sense of urgency are all classic signs of a phishing email. Clicking the link would likely lead to a malicious site asking for personal or payment details.')">Click the link to reschedule</button>
-  <button onclick="alert('✅ Correct! You spotted the red flags. Legitimate companies usually have professional communication. The best action is to delete the email and check any real tracking numbers on the official courier website.')">Delete the email</button>
+  <button onclick="alert('❌ Wrong! Poor grammar, a generic greeting, and a sense of urgency are all classic signs of a phishing email. Clicking the link would likely lead to a malicious site asking for personal or payment details.'); proceedToNextLevel();">Click the link to reschedule</button>
+  <button onclick="alert('✅ Correct! You spotted the red flags. Legitimate companies usually have professional communication. The best action is to delete the email and check any real tracking numbers on the official courier website.'); proceedToNextLevel();">Delete the email</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 13: Deceptive Phishing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 13: Deceptive Phishing</h2>
@@ -12,8 +13,8 @@
     <p><b>From: Netflix Support</b><br>"We're having some trouble with your current billing information. Please visit this link to update your payment method to avoid service interruption."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! This deceptive email creates a false sense of urgency to trick you into clicking. The link leads to a fake Netflix page designed to steal your login and credit card details.')">Click the link and update your details</button>
-  <button onclick="alert('✅ Correct! Never trust links in emails regarding payment issues. Always log in to your account directly through the official website or app to check your billing status.')">Open a new tab and go to Netflix.com directly</button>
+  <button onclick="alert('❌ Wrong! This deceptive email creates a false sense of urgency to trick you into clicking. The link leads to a fake Netflix page designed to steal your login and credit card details.'); proceedToNextLevel();">Click the link and update your details</button>
+  <button onclick="alert('✅ Correct! Never trust links in emails regarding payment issues. Always log in to your account directly through the official website or app to check your billing status.'); proceedToNextLevel();">Open a new tab and go to Netflix.com directly</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

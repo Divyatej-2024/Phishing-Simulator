@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 6: HTTPS Phishing</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 6: HTTPS Phishing</h2>
@@ -12,8 +13,8 @@
     <p><b>Website Prompt:</b> "Your account is not protected by our latest security patch. Please sign in to continue."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.')">Log in since the connection is secure</button>
-  <button onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.')">Check the domain name and realize it's fake</button>
+  <button onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.'); proceedToNextLevel();">Log in since the connection is secure</button>
+  <button onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.'); proceedToNextLevel();">Check the domain name and realize it's fake</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>

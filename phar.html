@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Level 2: Pharming</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
 </head>
 <body onload="checkLogin()">
   <h2>Level 2: Pharming</h2>
@@ -12,8 +13,8 @@
     <p><b>Website Prompt:</b> "Welcome! Please enter your account number and password to access your secure portal."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! This is a classic pharming attack. The malicious site looks real, but its goal is to steal your login details. Entering your information would give them full access to your bank account.')">Enter your login details</button>
-  <button onclick="alert('✅ Correct! You noticed the suspicious URL. The real domain is likely just `mybank.com`. Pharming relies on fake websites hosted on slightly different domains to trick users.')">Close the tab and check the official bank URL</button>
+  <button onclick="alert('❌ Wrong! This is a classic pharming attack. The malicious site looks real, but its goal is to steal your login details. Entering your information would give them full access to your bank account.'); proceedToNextLevel();">Enter your login details</button>
+  <button onclick="alert('✅ Correct! You noticed the suspicious URL. The real domain is likely just `mybank.com`. Pharming relies on fake websites hosted on slightly different domains to trick users.'); proceedToNextLevel();">Close the tab and check the official bank URL</button>
   <br><br>
   <a href="menu.html">Back to Menu</a>
 </body>
