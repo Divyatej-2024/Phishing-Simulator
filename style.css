@@ -1,4 +1,7 @@
 body{
   background-image:radial-gradient(orange,lightorange,whitesmoke,white);
 }
-
+ul{
+  border-radius:30px;
+  border:1px solid blue;
+}
