@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharming</title>
+  <meta charset="UTF-8">
+  <title>Level 2: Pharming</title>
+  <script src="cookie.js"></script>
 </head>
-<body>
-    
+<body onload="checkLogin()">
+  <h2>Level 2: Pharming</h2>
+  <p>You're trying to access your online bank, "MyBank." You type the address into your browser, but the page that loads looks slightly off—the logo is a bit blurry and the colors are not quite right. The URL in the address bar reads "www.mybank-login-portal.com".</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>Website Prompt:</b> "Welcome! Please enter your account number and password to access your secure portal."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This is a classic pharming attack. The malicious site looks real, but its goal is to steal your login details. Entering your information would give them full access to your bank account.')">Enter your login details</button>
+  <button onclick="alert('✅ Correct! You noticed the suspicious URL. The real domain is likely just `mybank.com`. Pharming relies on fake websites hosted on slightly different domains to trick users.')">Close the tab and check the official bank URL</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
 </body>
 </html>
