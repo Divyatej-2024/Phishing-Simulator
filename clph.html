@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 9: Clone Phishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 9: Clone Phishing</h2>
+  <p>You receive an email that looks identical to a shipping confirmation you got yesterday from a major online retailer. This new email says there's been an "update" to your order. It has all the same graphics and text, but it asks you to click a new link to view the changes.</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>From: Online Retailer</b><br>"There has been an important update to your recent order #845-1934710. Please click here to view the updated invoice and delivery details."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This is a clone phishing attack. The attacker took a legitimate email and replaced the real link with a malicious one. Your familiarity with the original email is used to lower your guard.')">Click the new link</button>
+  <button onclick="alert('✅ Correct! It is highly suspicious to receive a second, nearly identical email with a different link. The safest action is to go directly to the retailer\'s official website and check your order status there.')">Go to the official website to check your order</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>

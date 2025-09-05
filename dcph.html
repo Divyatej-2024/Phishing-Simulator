@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 13: Deceptive Phishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 13: Deceptive Phishing</h2>
+  <p>You get an email from "Netflix" with the subject "Account Suspension Notice". It says your payment method was declined and your account will be closed unless you update your billing information immediately via the provided link.</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>From: Netflix Support</b><br>"We're having some trouble with your current billing information. Please visit this link to update your payment method to avoid service interruption."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This deceptive email creates a false sense of urgency to trick you into clicking. The link leads to a fake Netflix page designed to steal your login and credit card details.')">Click the link and update your details</button>
+  <button onclick="alert('✅ Correct! Never trust links in emails regarding payment issues. Always log in to your account directly through the official website or app to check your billing status.')">Open a new tab and go to Netflix.com directly</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>

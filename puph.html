@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 12: Pop-up Phishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 12: Pop-up Phishing</h2>
+  <p>While browsing a news article, a large, flashing red pop-up window takes over your screen. It looks like a system alert and loudly proclaims: "WARNING! Your computer is infected with 5 viruses! Immediate action required!" It has a button to "Scan and Remove Viruses Now".</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>Pop-up Alert:</b> "Your system is at risk. We have detected spyware and malware. Click here for a free scan to protect your data."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This is a classic scareware pop-up. Clicking it would either download actual malware or lead you to a fraudulent site asking for payment for a fake antivirus product.')">Click the button to scan</button>
+  <button onclick="alert('✅ Correct! Browsers cannot scan your computer for viruses. This is a fake warning designed to scare you. The only safe action is to carefully close the pop-up window or the entire browser tab.')">Close the pop-up window</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>

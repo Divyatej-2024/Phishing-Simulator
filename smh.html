@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 17: Smishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 17: Smishing (SMS Phishing)</h2>
+  <p>You get a text message on your phone from an unknown number. It reads: "Royal Mail: Your parcel has been held at our depot. A £1.99 shipping fee is required for redelivery. Please visit: track-my-item.net to pay."</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>SMS Message:</b> "Royal Mail: Your parcel has a pending shipping fee. Visit track-my-item.net to resolve this."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This is a smishing scam. The link leads to a fake website that will steal your name, address, and credit card details for a tiny fee, but the real prize for them is your data.')">Tap the link to pay the fee</button>
+  <button onclick="alert('✅ Correct! Legitimate couriers do not typically ask for payment details via text. The suspicious, non-official URL is a huge red flag. You should always use the official website or app to track parcels.')">Delete the message</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>

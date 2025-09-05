@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 15: Search Engine Phishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 15: Search Engine Phishing</h2>
+  <p>You need to file your taxes and search online for the official HMRC self-assessment portal. The very first result is an ad, marked with a small "Ad" label, with the title "HMRC Official Site - File Your Taxes Online". The URL looks plausible: "hmrc-online-filing.co.uk".</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>Search Result (Ad):</b> "HMRC Official Site - File Your Taxes Online. Quick and easy self-assessment. Click here to log in."</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! Scammers buy search ads to appear above the real results. This link leads to a phishing site designed to look exactly like the real HMRC portal to steal your Government Gateway login and personal data.')">Click the ad link</button>
+  <button onclick="alert('✅ Correct! You wisely chose to skip the paid ads. The official UK government domain is always `gov.uk`. Scammers often use misleading domains like `.co.uk` or `.com` for their fake sites. Always scroll down to the organic search results for official sites.')">Skip the ad and find the link with `gov.uk`</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>

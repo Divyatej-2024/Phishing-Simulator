@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 11: Waterhole Phishing</title>
+  <script src="cookie.js"></script>
+</head>
+<body onload="checkLogin()">
+  <h2>Level 11: Waterhole Phishing</h2>
+  <p>You're an avid bird watcher and frequently visit a small, popular forum called "UKBirdSightings.org" to share photos. Today, when you visit the site, a pop-up appears stating that to view the new high-resolution gallery, you need to install a special 'Image Viewer' plugin.</p>
+  <div style="border:1px solid #333; padding:10px; width:400px;">
+    <p><b>Website Pop-up:</b> "This website has been updated! Please install the new Media Viewer Codec to continue. [Download Now]"</p>
+  </div>
+  <br>
+  <button onclick="alert('❌ Wrong! This is a waterhole attack. Hackers compromised a niche website they know a specific group of people will visit. The download is malware disguised as a legitimate plugin.')">Download and install the plugin</button>
+  <button onclick="alert('✅ Correct! Unsolicited software downloads, even on trusted sites, are a major risk. The site may have been compromised. You should never install software from a pop-up prompt.')">Close the pop-up and leave the site</button>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+</body>
+</html>
