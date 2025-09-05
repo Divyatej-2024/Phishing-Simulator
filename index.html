@@ -1,52 +1,62 @@
-<html>
-  <Head>Phishing Simulator</Head>
-  <link rel="stylesheet" href="style.css">
-  <Body>
-    <div class="drop-down">
-    <button onclick="PHsim()" class="drpbn">Phishing Simulator</button>
-    <div id="myDrpdwn" class="drop-cont">
-<a href="soceng.html">Social Engineering</a><br>
-<a href="phar.html">Pharming</a><br>
-<a href="whl.html">Whaling</a><br>
-<a href="wesp.html">Website Spoofing</a><br>
-<a href="sph.html">Spear Phishing</a><br>
-<a href="htph.html">HTTPS Phishing</a><br>
-<a href="emph.html">Email Phishing</a><br>
-<a href="anph.html">Angler Phishing</a><br>
-<a href="clph.html">Clone Phishing</a><br>
-<a href="viph.html">Vishing</a><br>
-<a href="whph.html">Waterhole Phishing</a><br>
-<a href="puph.html">Pop-up Phishing</a><br>
-<a href="dcph.html">deceptive Phishing</a><br>
-<a href="etph.html">Evil Twin Phishing</a><br>
-<a href="seph.html">Search Engine Phishing</a><br>
-<a href="iph.html">Image Phishing</a><br>
-<a href="smh.html">Smishing</a><br>
-<a href="dmph.html">Domain Phishing</a><br>
-<a href="mitm.html">Man-in-the-Middle attacks</a><br>
-<a href="smph.html">Social Media Phishing</a>
-</div>
-</div>
-</Body>
-<script>
-  /* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function PHsim() {
-  document.getElementById("myDrpdwn").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.drpbn')) {
-    var dropdowns = document.getElementsByClassName("drop-cont");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Simulator - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-  }
-}
-</script>
+    .login-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 80%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Welcome to Phishing Simulator</h2>
+    <p>Enter your name to begin:</p>
+    <input type="text" id="playerName" placeholder="Your name">
+    <br>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <script>
+    function startGame() {
+      const name = document.getElementById('playerName').value.trim();
+      if (!name) {
+        alert('Please enter your name');
+        return;
+      }
+      localStorage.setItem('playerName', name);
+      localStorage.setItem('score', 0);
+      window.location.href = 'soceng.html'; // go to first level
+    }
+  </script>
+</body>
 </html>
