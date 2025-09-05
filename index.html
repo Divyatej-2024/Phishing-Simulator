@@ -2,8 +2,9 @@
   <Head>Phishing Simulator</Head>
   <link rel="stylesheet" href="style.css">
   <Body>
-    <nav>Phishing Simulator</nav>
-  <UL>
+    <div class="drop-down">
+    <button onclick="PHsim()" class="drpbn">Phishing Simulator</button>
+    <div id="myDrpdwn" class="drop-cont">
 <a href="soceng.html">Social Engineering</a><br>
 <a href="phar.html">Pharming</a><br>
 <a href="whl.html">Whaling</a><br>
@@ -24,6 +25,28 @@
 <a href="dmph.html">Domain Phishing</a><br>
 <a href="mitm.html">Man-in-the-Middle attacks</a><br>
 <a href="smph.html">Social Media Phishing</a>
-  </UL>
-  </Body>
+</div>
+</div>
+</Body>
+<script>
+  /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function PHsim() {
+  document.getElementById("myDrpdwn").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.drpbn')) {
+    var dropdowns = document.getElementsByClassName("drop-cont");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 </html>
