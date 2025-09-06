@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Level 6: HTTPS Phishing</title>
+  <title>Level 8: Angler Phishing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
 <link rel="stylesheet" href="style.css">
@@ -11,15 +11,15 @@
 <body id="social-media-theme" onload="checkLogin(); updateProgressBar();">
  <div class="container">
   <div id="progress-container"><div id="progress-bar"></div></div>
-  <h2>Level 6: HTTPS Phishing</h2>
-  <p>You get an email about a security update for your cloud storage account. You click the link and your browser shows a padlock icon and "https://" in the address bar, indicating a secure connection. The URL is "https://www.dropbox-security-update.com". The page asks you to log in to apply the update.</p>
+  <h2>Level 8: Angler Phishing</h2>
+  <p>Your flight was delayed, so you post a complaint on social media, tagging the airline. Moments later, you get a reply from another account with a similar name and logo. They apologize and ask you to send them a direct message with your booking reference and passport number to "expedite your compensation claim."</p>
   <div class="scenario-box">
-    <p><b>Website Prompt:</b> "Your account is not protected by our latest security patch. Please sign in to continue."</p>
+    <p><b>Fake Support (@AirlineHelp_UK):</b>  "We are so sorry for the delay. Please DM us your full name, booking reference, and passport number so we can assist you with your claim immediately."</p>
   </div>
   <br>
   <div class="button-container">
-  <button class="btn-choice" onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.')">Log in since the connection is secure</button>
-  <button class="btn-choice" onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.'); proceedToNextLevel();">Check the domain name and realize it's fake</button>
+  <button class="btn-choice" onclick="alert('❌ Wrong! Scammers monitor social media for customer complaints. They create fake support accounts (angler phishing) to trick you into giving them sensitive personal data, which can be used for identity theft.')">Send them your details via DM</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You should always verify the social media account is the official, verified one (look for a blue checkmark or high follower count). Never share sensitive data like a passport number in a DM.'); proceedToNextLevel();">Check the account's profile and see it's fake</button>
   </div>
   <a href="menu.html">Back to Menu</a>
   </div>
