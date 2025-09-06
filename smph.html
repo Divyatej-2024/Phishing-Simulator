@@ -5,17 +5,22 @@
   <title>Level 20: Social Media Phishing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="social-media-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 20: Social Media Phishing</h2>
   <p>You get a direct message on Instagram from a close friend. The message is unusual and just says, "lol I can't believe you posted this embarrassing video of yourself" along with a suspicious-looking link from a URL shortener.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Friend's DM:</b> "OMG is this really you?? 🤣 [bit.ly/random-link]"</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! Your friend\'s account was likely hacked. Clicking the link would take you to a fake Instagram login page. Entering your details would compromise your own account, and the scam would then be sent to all of your friends.')">Click the link to see the video</button>
-  <button onclick="alert('✅ Correct! This is a very common account takeover scam. The out-of-character message and suspicious link are red flags. The best thing to do is to contact your friend through a different method (like a text) to let them know their account is compromised.'); proceedToNextLevel();">Message your friend separately to warn them</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Your friend\'s account was likely hacked. Clicking the link would take you to a fake Instagram login page. Entering your details would compromise your own account, and the scam would then be sent to all of your friends.')">Click the link to see the video</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a very common account takeover scam. The out-of-character message and suspicious link are red flags. The best thing to do is to contact your friend through a different method (like a text) to let them know their account is compromised.'); proceedToNextLevel();">Message your friend separately to warn them</button>
+</div>
   <a href="menu.html">Back to Menu</a>
+</div>
 </body>
 </html>
