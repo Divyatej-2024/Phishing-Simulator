@@ -6,9 +6,9 @@
   <script src="cookie.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkLogin()">
+<body onload="checkLogin(); displayUsername();">
   <div class="container">
-    <h2>Choose a Level</h2>
+    <h2 id="welcome-message">Welcome !</h2><h3>Choose a Level</h3>
     <a href="soceng.html" class="menu-link">Social Engineering</a>
     <a href="phar.html" class="menu-link">Pharming</a>
     <a href="whl.html" class="menu-link">Whaling</a>

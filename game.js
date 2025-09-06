@@ -33,3 +33,15 @@ function updateProgressBar() {
     }
   }
 }
+/* Add this to the bottom of game.js */
+
+function displayUsername() {
+    const user = getUsername(); // This calls the function from cookie.js
+    if (user) {
+        // Find the h2 tag and set its content
+        const welcomeMessage = document.getElementById('welcome-message');
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome, ${user}!`;
+        }
+    }
+}
