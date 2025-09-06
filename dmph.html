@@ -8,16 +8,20 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 18: Domain Phishing (Typosquatting)</h2>
   <p>You get a "Security Alert" email that seems to be from Microsoft. It says there was an unusual sign-in to your account. The sender's email address is "security@microsft.com". It urges you to click a link to verify your recent activity.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>From: security@microsft.com</b><br>"We detected an unusual sign-in attempt. If this wasn't you, please secure your account here."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! You missed the typo in the domain name: `microsft` instead of `microsoft`. This is a classic typosquatting technique used in domain phishing to trick you into trusting a fake source.')">Click the link to secure the account</button>
-  <button onclick="alert('✅ Correct! You spotted the subtle but critical spelling mistake in the sender\'s domain. This is a clear sign of a phishing attempt. The correct action is to ignore the email.'); proceedToNextLevel();">Notice the typo and delete the email</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! You missed the typo in the domain name: `microsft` instead of `microsoft`. This is a classic typosquatting technique used in domain phishing to trick you into trusting a fake source.')">Click the link to secure the account</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You spotted the subtle but critical spelling mistake in the sender\'s domain. This is a clear sign of a phishing attempt. The correct action is to ignore the email.'); proceedToNextLevel();">Notice the typo and delete the email</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
