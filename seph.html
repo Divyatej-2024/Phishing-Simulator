@@ -5,17 +5,22 @@
   <title>Level 15: Search Engine Phishing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 15: Search Engine Phishing</h2>
   <p>You need to file your taxes and search online for the official HMRC self-assessment portal. The very first result is an ad, marked with a small "Ad" label, with the title "HMRC Official Site - File Your Taxes Online". The URL looks plausible: "hmrc-online-filing.co.uk".</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Search Result (Ad):</b> "HMRC Official Site - File Your Taxes Online. Quick and easy self-assessment. Click here to log in."</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! Scammers buy search ads to appear above the real results. This link leads to a phishing site designed to look exactly like the real HMRC portal to steal your Government Gateway login and personal data.')">Click the ad link</button>
-  <button onclick="alert('✅ Correct! You wisely chose to skip the paid ads. The official UK government domain is always `gov.uk`. Scammers often use misleading domains like `.co.uk` or `.com` for their fake sites. Always scroll down to the organic search results for official sites.'); proceedToNextLevel();">Skip the ad and find the link with `gov.uk`</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Scammers buy search ads to appear above the real results. This link leads to a phishing site designed to look exactly like the real HMRC portal to steal your Government Gateway login and personal data.')">Click the ad link</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You wisely chose to skip the paid ads. The official UK government domain is always `gov.uk`. Scammers often use misleading domains like `.co.uk` or `.com` for their fake sites. Always scroll down to the organic search results for official sites.'); proceedToNextLevel();">Skip the ad and find the link with `gov.uk`</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
