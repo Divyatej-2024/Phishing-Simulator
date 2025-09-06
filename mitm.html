@@ -6,16 +6,19 @@
   <script src="cookie.js"></script>
   <script src="game.js"></script>
 </head>
-<body onload="checkLogin()">
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 19: Man-in-the-Middle Attacks</h2>
   <p>You're using the free Wi-Fi at a local cafe to do some online banking. You type in your bank's address, the page loads, and it has the correct URL and even a security padlock. However, your browser gives you a brief warning that the "site's security certificate is not trusted," but gives you an option to proceed anyway.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Browser Warning:</b> "Your connection is not private. Attackers might be trying to steal your information... [Proceed to site (unsafe)]"</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! This warning is a classic sign of a Man-in-the-Middle (MITM) attack on public Wi-Fi. An attacker is intercepting your connection and presenting a fake certificate. Proceeding would send your login details directly to them.')">Proceed to the site anyway</button>
-  <button onclick="alert('✅ Correct! You must NEVER ignore certificate warnings, especially for sensitive sites. This indicates your connection is being monitored. The only safe option is to disconnect from the Wi-Fi and use a trusted network or your mobile data.'); proceedToNextLevel();">Heed the warning and disconnect from the Wi-Fi</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This warning is a classic sign of a Man-in-the-Middle (MITM) attack on public Wi-Fi. An attacker is intercepting your connection and presenting a fake certificate. Proceeding would send your login details directly to them.')">Proceed to the site anyway</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You must NEVER ignore certificate warnings, especially for sensitive sites. This indicates your connection is being monitored. The only safe option is to disconnect from the Wi-Fi and use a trusted network or your mobile data.'); proceedToNextLevel();">Heed the warning and disconnect from the Wi-Fi</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
