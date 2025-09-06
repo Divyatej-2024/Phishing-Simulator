@@ -5,17 +5,23 @@
   <title>Level 16: Image Phishing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div class="Progress-container"><div class="progress-bar"></div></div>
   <h2>Level 16: Image Phishing</h2>
   <p>You receive an email from your bank with what looks like a screenshot of a secure message. The entire body of the email is just one large image. The text within the image says "A secure message is waiting for you. Click anywhere below to log in and view it."</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Email Body:</b> [An image that looks like a secure message portal with a 'Click to Read' button]</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! This is image phishing. The entire image is a single hyperlink to a malicious website. Attackers use this method to bypass email spam filters that are designed to read text, not text within an image.')">Click the image</button>
-  <button onclick="alert('✅ Correct! You recognized that a legitimate bank would never send important information this way. Hovering over the image would reveal a suspicious URL. The safe approach is to log in to your bank via its official website.'); proceedToNextLevel();">Delete the email and log in to your bank's website directly</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is image phishing. The entire image is a single hyperlink to a malicious website. Attackers use this method to bypass email spam filters that are designed to read text, not text within an image.')">Click the image</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You recognized that a legitimate bank would never send important information this way. Hovering over the image would reveal a suspicious URL. The safe approach is to log in to your bank via its official website.'); proceedToNextLevel();">Delete the email and log in to your bank's website directly</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+</div>
 </body>
 </html>
