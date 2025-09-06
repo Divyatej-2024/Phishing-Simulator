@@ -1,0 +1,60 @@
+/* FILE: level-styles.css */
+
+/* --- Email Phishing Theme --- */
+/* Used for: emph, clph, dcph, iph, dmph, sph, whl */
+#email-theme {
+  background-color: #eaf1fb; /* Light blue, like an email client */
+}
+#email-theme .scenario-box {
+  border-left: 5px solid #4a90e2; /* Blue sidebar, like a new message */
+}
+
+/* --- Website/Browser Theme --- */
+/* Used for: phar, wesp, htph, seph */
+#website-theme {
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
+}
+#website-theme .scenario-box {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-top: 3px solid #fca311; /* Gold/orange accent */
+}
+
+/* --- Social Media Theme --- */
+/* Used for: smph, anph */
+#social-media-theme {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+/* --- Mobile/SMS Theme --- */
+/* Used for: smh */
+#mobile-theme .scenario-box {
+  background-color: #2a9d8f; /* SMS bubble color */
+  color: white;
+  border-radius: 20px;
+}
+#mobile-theme .scenario-box b {
+    color: #e9c46a;
+}
+
+/* --- Corporate/System Theme --- */
+/* Used for: mitm, etph, whph, viph */
+#corporate-theme {
+    background-color: #e5e5e5;
+}
+#corporate-theme .container {
+    border-top: 5px solid #023047;
+}
+
+/* --- Alert/Scareware Theme --- */
+/* Used for: puph */
+#alert-theme {
+    background-color: #212529;
+}
+#alert-theme .scenario-box {
+    border: 2px dashed #e63946;
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+#alert-theme h2 {
+    color: #e63946;
+}
