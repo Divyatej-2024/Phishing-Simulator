@@ -5,17 +5,23 @@
   <title>Level 6: HTTPS Phishing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div class="progress-container"><div class="progress-bar"></div></div>
   <h2>Level 6: HTTPS Phishing</h2>
   <p>You get an email about a security update for your cloud storage account. You click the link and your browser shows a padlock icon and "https://" in the address bar, indicating a secure connection. The URL is "https://www.dropbox-security-update.com". The page asks you to log in to apply the update.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Website Prompt:</b> "Your account is not protected by our latest security patch. Please sign in to continue."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.')">Log in since the connection is secure</button>
-  <button onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.'); proceedToNextLevel();">Check the domain name and realize it's fake</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.')">Log in since the connection is secure</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.'); proceedToNextLevel();">Check the domain name and realize it's fake</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
