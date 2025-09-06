@@ -1,4 +1,4 @@
-// FILE: cookie.js
+/* FILE: cookie.js */
 function login(event) {
   event.preventDefault();
   let user = document.getElementById("username").value;

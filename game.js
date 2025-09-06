@@ -1,44 +1,35 @@
-// game.js - Manages level progression
+/* FILE: game.js */
+// Manages level progression and progress bar
 
-// Define the order of all levels
 const levelOrder = [
-  'soceng.html',
-  'phar.html',
-  'whl.html',
-  'wesp.html',
-  'sph.html',
-  'htph.html',
-  'emph.html',
-  'anph.html',
-  'clph.html',
-  'viph.html',
-  'whph.html',
-  'puph.html',
-  'dcph.html',
-  'etph.html',
-  'seph.html',
-  'iph.html',
-  'smh.html',
-  'dmph.html',
-  'mitm.html',
-  'smph.html'
+  'soceng.html', 'phar.html', 'whl.html', 'wesp.html', 'sph.html',
+  'htph.html', 'emph.html', 'anph.html', 'clph.html', 'viph.html',
+  'whph.html', 'puph.html', 'dcph.html', 'etph.html', 'seph.html',
+  'iph.html', 'smh.html', 'dmph.html', 'mitm.html', 'smph.html'
 ];
 
-function proceedToNextLevel() {
-  // Get the current page's file name from the URL
+function getCurrentLevelIndex() {
   const currentPage = window.location.pathname.split("/").pop();
+  return levelOrder.indexOf(currentPage);
+}
 
-  // Find the index of the current page in our level order array
-  const currentIndex = levelOrder.indexOf(currentPage);
-
-  // Check if the current level is in the list and not the last one
+function proceedToNextLevel() {
+  const currentIndex = getCurrentLevelIndex();
   if (currentIndex !== -1 && currentIndex < levelOrder.length - 1) {
-    // If it's not the last level, get the next level's filename
     const nextLevel = levelOrder[currentIndex + 1];
-    // Redirect to the next level
     window.location.href = nextLevel;
   } else {
-    // If it's the last level or something went wrong, go to the end screen
     window.location.href = 'end.html';
+  }
+}
+
+function updateProgressBar() {
+  const currentIndex = getCurrentLevelIndex();
+  if (currentIndex !== -1) {
+    const progressPercent = ((currentIndex + 1) / levelOrder.length) * 100;
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = progressPercent + '%';
+    }
   }
 }

@@ -1,9 +1,7 @@
 /* FILE: style.css */
-
-/* --- General Body & Font Styling --- */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5; /* Light grey background */
+  background-color: #f0f2f5;
   color: #333;
   display: flex;
   justify-content: center;
@@ -14,7 +12,6 @@ body {
   box-sizing: border-box;
 }
 
-/* --- Main Content Container --- */
 .container {
   background-color: #ffffff;
   padding: 30px 40px;
@@ -25,14 +22,12 @@ body {
   text-align: center;
 }
 
-/* --- Headings --- */
 h2 {
   color: #1d3557;
   margin-top: 0;
   margin-bottom: 20px;
 }
 
-/* --- Links (Menu & Back) --- */
 a {
   color: #457b9d;
   text-decoration: none;
@@ -50,7 +45,6 @@ a:hover {
     font-size: 1.1em;
 }
 
-/* --- Scenario Box Styling (where the phishing message appears) --- */
 .scenario-box {
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
@@ -62,11 +56,8 @@ a:hover {
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.scenario-box b {
-    color: #005f73;
-}
+.scenario-box b { color: #005f73; }
 
-/* --- Button Styling --- */
 .button-container {
     display: flex;
     gap: 15px;
@@ -96,8 +87,23 @@ button:hover {
   border: 1px solid #ced4da;
 }
 
-/* Logout button styling */
 .btn-logout {
     background-color: #e63946;
     color: white;
+}
+
+#progress-container {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 10px;
+}
+
+#progress-bar {
+    width: 0%; /* Starts at 0, JS will update this */
+    height: 10px;
+    background-color: #457b9d;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
 }

@@ -5,17 +5,23 @@
   <title>Level 1: Social Engineering</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 1: Social Engineering</h2>
   <p>You receive an urgent call from someone claiming to be from your company's IT Help Desk. They say your account has been flagged for suspicious activity and they need to verify your identity immediately to prevent a lockdown.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Caller (IT Help Desk):</b> "Hi, this is Mark from IT. We've detected a security breach linked to your account. To secure it, I need you to confirm your username and password right now."</p>
   </div>
   <br>
-  <button onclick="alert('❌ Wrong! Legitimate IT support will never ask for your password directly. This is a common tactic to trick you into giving up your credentials.')">Give them the password</button>
-  <button onclick="alert('✅ Correct! Always be suspicious of unsolicited calls asking for sensitive information. You should hang up and call the official IT Help Desk number yourself to verify the request.'); proceedToNextLevel();">Decline and say you'll call the official Help Desk number</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Legitimate IT support will never ask for your password directly. This is a common tactic to trick you into giving up your credentials.')">Give them the password</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! Always be suspicious of unsolicited calls asking for sensitive information. You should hang up and call the official IT Help Desk number yourself to verify the request.'); proceedToNextLevel();">Decline and say you'll call the official Help Desk number</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
