@@ -5,17 +5,22 @@
   <title>Level 10: Vishing (Voice Phishing)</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="level-style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkLogin()">
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 10: Vishing (Voice Phishing)</h2>
   <p>You receive an automated phone call. A recorded voice claims to be from HMRC and states that a lawsuit has been filed against you for tax evasion. It warns that local police will arrest you within the hour unless you press 1 to speak with an agent immediately to settle your case.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Robocall:</b> "[BEEP] This is an urgent message from HM Revenue and Customs. An arrest warrant has been issued under your name. To avoid legal consequences, press 1 now."</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! Government agencies like HMRC will never use threatening robocalls. This is a vishing scam designed to create panic and rush you into making a payment, often through untraceable methods like gift cards.')">Press 1 to speak to an agent</button>
-  <button onclick="alert('✅ Correct! This is a high-pressure scare tactic. The correct action is to hang up immediately. If you are concerned about your taxes, you should independently find the official HMRC contact number and call them yourself.'); proceedToNextLevel();">Hang up the phone</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Government agencies like HMRC will never use threatening robocalls. This is a vishing scam designed to create panic and rush you into making a payment, often through untraceable methods like gift cards.')">Press 1 to speak to an agent</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a high-pressure scare tactic. The correct action is to hang up immediately. If you are concerned about your taxes, you should independently find the official HMRC contact number and call them yourself.'); proceedToNextLevel();">Hang up the phone</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
