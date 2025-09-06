@@ -33,15 +33,21 @@ function updateProgressBar() {
     }
   }
 }
-/* Add this to the bottom of game.js */
+/* Replace the existing displayUsername function in game.js with this one */
 
 function displayUsername() {
-    const user = getUsername(); // This calls the function from cookie.js
+    const user = getUsername(); // Calls the function from cookie.js
     if (user) {
-        // Find the h2 tag and set its content
+        // Update the main welcome message if it exists on the page
         const welcomeMessage = document.getElementById('welcome-message');
         if (welcomeMessage) {
             welcomeMessage.textContent = `Welcome, ${user}!`;
+        }
+
+        // Update the in-level player name placeholder if it exists
+        const playerNameSpan = document.getElementById('playerName');
+        if (playerNameSpan) {
+            playerNameSpan.textContent = user;
         }
     }
 }
