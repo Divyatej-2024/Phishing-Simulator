@@ -5,17 +5,22 @@
   <title>Level 4: Website Spoofing</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 4: Website Spoofing</h2>
   <p>You see a social media ad for an incredible deal: a new pair of premium headphones for 90% off. You click the link and are taken to a slick-looking online store. The URL is "dealz-4-u.shop". Everything looks legitimate.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>Website:</b> "Flash Sale! Enter your name, address, and credit card information to claim this limited-time offer!"</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! This is a spoofed website. Scammers create fake e-commerce sites with unbelievable deals to harvest credit card details. You would be charged and receive nothing.')">Enter your payment information</button>
-  <button onclick="alert('✅ Correct! If a deal seems too good to be true, it probably is. Unfamiliar URLs and extreme discounts are major warning signs of a spoofed retail website.'); proceedToNextLevel();">Close the website</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is a spoofed website. Scammers create fake e-commerce sites with unbelievable deals to harvest credit card details. You would be charged and receive nothing.')">Enter your payment information</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! If a deal seems too good to be true, it probably is. Unfamiliar URLs and extreme discounts are major warning signs of a spoofed retail website.'); proceedToNextLevel();">Close the website</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
