@@ -5,17 +5,22 @@
   <title>Level 3: Whaling</title>
   <script src="cookie.js"></script>
   <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
 </head>
-<body onload="checkLogin()">
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
   <h2>Level 3: Whaling</h2>
   <p>You work in the finance department. You receive an email that appears to be from your CEO. It's marked URGENT and says she's in a last-minute meeting and needs you to process an immediate wire transfer to a new vendor to close a confidential deal.</p>
-  <div style="border:1px solid #333; padding:10px; width:400px;">
+  <div class="scenario-box">
     <p><b>From: CEO@yourcompany.com</b><br>"I need you to wire $50,000 to the attached account details immediately. This is critical for the Project Alpha acquisition. Do not speak to anyone about this until the deal is public. Let me know once it's done."</p>
   </div>
-  <br>
-  <button onclick="alert('❌ Wrong! High-pressure tactics and requests to bypass normal procedures are huge red flags. Sending the money would result in a major financial loss for the company.')">Process the wire transfer as requested</button>
-  <button onclick="alert('✅ Correct! This is a whaling attack, targeting a high-value employee. You must always verify such unusual, high-stakes requests through a different communication channel, like a direct phone call to the CEO.'); proceedToNextLevel();">Call the CEO on her mobile to verbally confirm</button>
-  <br><br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! High-pressure tactics and requests to bypass normal procedures are huge red flags. Sending the money would result in a major financial loss for the company.')">Process the wire transfer as requested</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a whaling attack, targeting a high-value employee. You must always verify such unusual, high-stakes requests through a different communication channel, like a direct phone call to the CEO.'); proceedToNextLevel();">Call the CEO on her mobile to verbally confirm</button>
+  </div>
   <a href="menu.html">Back to Menu</a>
+  </div>
 </body>
 </html>
