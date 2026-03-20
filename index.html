@@ -2,17 +2,165 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Phishing Simulator - Login</title>
-  <script src="cookie.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AegisPhish Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Login</h2>
-    <form onsubmit="login(event)">
-      <label>Username: <input type="text" id="username" required></label><br><br>
-      <button type="submit">Start Game</button>
-    </form>
-  </div>
+  <div class="background-glow glow-a"></div>
+  <div class="background-glow glow-b"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Anti-Phishing Training Platform</p>
+        <h1>AegisPhish Lab</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="logoutBtn" class="ghost hidden" type="button">Logout</button>
+      </div>
+    </header>
+
+    <section id="authView" class="panel">
+      <h2>Welcome</h2>
+      <p>Train with realistic phishing simulations inspired by enterprise platforms, redesigned as a standalone app with modern features.</p>
+      <form id="loginForm" class="stack">
+        <label for="usernameInput">Analyst Name</label>
+        <input id="usernameInput" maxlength="40" placeholder="Enter your name" required>
+        <button type="submit">Enter Lab</button>
+      </form>
+    </section>
+
+    <section id="dashboardView" class="hidden">
+      <div class="grid-two">
+        <article class="panel">
+          <h2 id="welcomeText">Welcome</h2>
+          <p id="summaryText">Track your progress, sharpen threat detection, and push your score.</p>
+          <div class="stats">
+            <div class="stat-card">
+              <span class="stat-label">Score</span>
+              <strong id="scoreStat">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Accuracy</span>
+              <strong id="accuracyStat">0%</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Best Streak</span>
+              <strong id="streakStat">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Completed</span>
+              <strong id="completedStat">0/20</strong>
+            </div>
+          </div>
+          <div class="stack">
+            <label class="toggle-row">
+              <input id="timerToggle" type="checkbox" checked>
+              <span>Enable per-scenario timer</span>
+            </label>
+            <label for="timePerQuestion" class="mono">Time per scenario (seconds)</label>
+            <input id="timePerQuestion" type="number" min="10" max="120" value="35">
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Modes</h3>
+          <div class="mode-grid">
+            <button id="startLearningBtn" class="mode-card" type="button">
+              <span class="mode-title">Guided Learning</span>
+              <span class="mode-sub">20 ordered scenarios with feedback</span>
+            </button>
+            <button id="startChallengeBtn" class="mode-card" type="button">
+              <span class="mode-title">Rapid Challenge</span>
+              <span class="mode-sub">10 random timed scenarios</span>
+            </button>
+            <button id="continueBtn" class="mode-card" type="button">
+              <span class="mode-title">Continue Session</span>
+              <span class="mode-sub" id="continueHint">No active session</span>
+            </button>
+          </div>
+          <div class="button-row">
+            <button id="resetProgressBtn" class="danger" type="button">Reset Progress</button>
+            <button id="exportBtn" class="ghost" type="button">Export Progress</button>
+            <label for="importInput" class="ghost fake-button">Import Progress</label>
+            <input id="importInput" type="file" accept=".json" class="hidden">
+          </div>
+        </article>
+      </div>
+
+      <article class="panel">
+        <h3>Achievements</h3>
+        <div id="achievementList" class="achievement-grid"></div>
+      </article>
+
+      <article class="panel">
+        <h3>Scenario Library</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Type</th>
+                <th>Difficulty</th>
+                <th>Status</th>
+                <th>Practice</th>
+              </tr>
+            </thead>
+            <tbody id="libraryBody"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="sessionView" class="hidden">
+      <article class="panel">
+        <div class="session-head">
+          <div>
+            <p class="eyebrow" id="sessionMode">Mode</p>
+            <h2 id="scenarioTitle">Scenario</h2>
+          </div>
+          <div class="timer-box" id="timerBox">
+            <span class="mono">Time</span>
+            <strong id="timerValue">--</strong>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="sessionProgressBar" class="progress-fill"></div>
+        </div>
+        <p class="mono" id="sessionCounter">Scenario 1/1</p>
+
+        <div class="scenario-card">
+          <p id="scenarioPrompt"></p>
+          <blockquote id="scenarioMessage"></blockquote>
+        </div>
+
+        <div id="optionContainer" class="stack"></div>
+
+        <div id="feedbackPanel" class="feedback hidden">
+          <h4 id="feedbackTitle">Feedback</h4>
+          <p id="feedbackBody"></p>
+        </div>
+
+        <div class="button-row">
+          <button id="nextBtn" class="hidden" type="button">Next Scenario</button>
+          <button id="endSessionBtn" class="ghost" type="button">End Session</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <template id="achievementTemplate">
+    <article class="achievement locked">
+      <h4></h4>
+      <p></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
 </body>
 </html>
