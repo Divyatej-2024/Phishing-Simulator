@@ -3,257 +3,17 @@
 
   const STORAGE_KEY = "aegisphish_lab_state_v1";
   const USER_ID_KEY = "aegisphish_user_id";
+  const SESSION_KEY = "aegisphish_session_id";
   const API_TIMEOUT_MS = 4000;
   const ACHIEVEMENTS = [
     { id: "first_correct", title: "First Catch", description: "Answer one scenario correctly.", check: (s) => s.stats.correct >= 1 },
     { id: "streak_5", title: "Sharp Eye", description: "Reach a 5-answer correct streak.", check: (s) => s.stats.bestStreak >= 5 },
     { id: "score_1000", title: "Threat Hunter", description: "Reach 1000 total score.", check: (s) => s.stats.score >= 1000 },
     { id: "complete_10", title: "Halfway Guardian", description: "Complete 10 unique scenarios.", check: (s) => s.stats.completedIds.length >= 10 },
-    { id: "complete_all", title: "Lab Master", description: "Complete all 20 scenarios.", check: (s) => s.stats.completedIds.length >= SCENARIOS.length }
+    { id: "complete_all", title: "Lab Master", description: "Complete all scenarios.", check: (s) => s.stats.completedIds.length >= scenarioList.length }
   ];
 
-  const SCENARIOS = [
-    {
-      id: "social_engineering",
-      title: "Social Engineering Call",
-      type: "Voice Fraud",
-      difficulty: 1,
-      prompt: "Someone claiming to be IT asks for your password to fix a critical issue.",
-      message: "\"We detected malware on your account. Share your password now so we can secure your system.\"",
-      options: [
-        { text: "Share password to resolve quickly", safe: false, explanation: "Legitimate IT teams never request your password directly." },
-        { text: "Refuse and call official IT helpdesk", safe: true, explanation: "Using a verified internal number breaks attacker control." }
-      ]
-    },
-    {
-      id: "pharming",
-      title: "Pharming Portal",
-      type: "Website Attack",
-      difficulty: 2,
-      prompt: "Your bank page looks real but the URL is slightly different.",
-      message: "\"www.mybank-login-portal.com\" asks for your account credentials.",
-      options: [
-        { text: "Log in since branding looks correct", safe: false, explanation: "Attackers mimic visual design to harvest credentials." },
-        { text: "Close and visit the official bookmarked domain", safe: true, explanation: "Verifying the exact domain prevents domain spoofing." }
-      ]
-    },
-    {
-      id: "whaling",
-      title: "Executive Wire Request",
-      type: "Business Email Compromise",
-      difficulty: 3,
-      prompt: "A message from the CEO asks for immediate confidential wire transfer.",
-      message: "\"I am in a meeting. Process this transfer now and keep it private.\"",
-      options: [
-        { text: "Process transfer due to urgency", safe: false, explanation: "Urgency and secrecy are common BEC pressure tactics." },
-        { text: "Validate through a separate trusted channel", safe: true, explanation: "Out-of-band confirmation is required for high-risk transfers." }
-      ]
-    },
-    {
-      id: "website_spoof",
-      title: "Spoofed Shopfront",
-      type: "Retail Scam",
-      difficulty: 1,
-      prompt: "An unfamiliar store offers extreme discounts and asks card details.",
-      message: "\"90% off all products today only. Checkout now.\"",
-      options: [
-        { text: "Buy quickly before sale ends", safe: false, explanation: "Unrealistic offers are bait to steal payment data." },
-        { text: "Leave site and verify seller reputation", safe: true, explanation: "Cross-checking merchant trust prevents checkout fraud." }
-      ]
-    },
-    {
-      id: "spear_phishing",
-      title: "Targeted Conference Email",
-      type: "Spear Phishing",
-      difficulty: 3,
-      prompt: "HR email references your recent event and asks to log into a new portal.",
-      message: "\"Use this link to file your conference expenses now.\"",
-      options: [
-        { text: "Use link because context looks personal", safe: false, explanation: "Personal details increase believability, not authenticity." },
-        { text: "Use known internal portal directly", safe: true, explanation: "Manual navigation avoids credential capture pages." }
-      ]
-    },
-    {
-      id: "https_phishing",
-      title: "Padlock Trap",
-      type: "Credential Theft",
-      difficulty: 2,
-      prompt: "Page has HTTPS lock icon but domain is wrong.",
-      message: "\"Secure login for Dropbox account\" on an unrelated domain.",
-      options: [
-        { text: "Trust because HTTPS is present", safe: false, explanation: "HTTPS only secures transport; it does not validate business legitimacy." },
-        { text: "Reject due to mismatched domain", safe: true, explanation: "Domain validation is stronger than padlock-only trust." }
-      ]
-    },
-    {
-      id: "email_phishing",
-      title: "Delivery Failure Email",
-      type: "Email Scam",
-      difficulty: 1,
-      prompt: "Courier email with bad grammar claims a failed delivery and requests action.",
-      message: "\"Click to reschedule or your parcel will be returned today.\"",
-      options: [
-        { text: "Click link to avoid missing parcel", safe: false, explanation: "Urgent delivery pressure is a common phishing lure." },
-        { text: "Delete and verify via official courier app", safe: true, explanation: "Official app lookup prevents fake tracking pages." }
-      ]
-    },
-    {
-      id: "angler_phishing",
-      title: "Fake Support Reply",
-      type: "Social Media Fraud",
-      difficulty: 2,
-      prompt: "After posting complaint online, a similar account asks for passport details.",
-      message: "\"DM your booking reference and passport so we can compensate you now.\"",
-      options: [
-        { text: "DM requested personal details", safe: false, explanation: "Support impersonators mine complaints for direct data theft." },
-        { text: "Verify official account before sharing anything", safe: true, explanation: "Only verified channels should handle sensitive data." }
-      ]
-    },
-    {
-      id: "clone_phishing",
-      title: "Duplicate Order Email",
-      type: "Clone Phishing",
-      difficulty: 2,
-      prompt: "A second almost-identical order email appears with a changed link.",
-      message: "\"Updated tracking link. Click to view order status.\"",
-      options: [
-        { text: "Click new tracking link", safe: false, explanation: "Cloned emails replace links while preserving trusted formatting." },
-        { text: "Open retailer site manually", safe: true, explanation: "Direct website access defeats cloned-link manipulation." }
-      ]
-    },
-    {
-      id: "vishing",
-      title: "Tax Authority Robocall",
-      type: "Phone Scam",
-      difficulty: 1,
-      prompt: "Automated call threatens legal action unless immediate payment is made.",
-      message: "\"Press 1 now to avoid arrest and clear tax debt.\"",
-      options: [
-        { text: "Press 1 to settle issue quickly", safe: false, explanation: "Threatening legal urgency by phone is scam behavior." },
-        { text: "Hang up and verify with official tax channel", safe: true, explanation: "Independent verification neutralizes caller spoofing." }
-      ]
-    },
-    {
-      id: "waterhole",
-      title: "Compromised Niche Forum",
-      type: "Watering Hole",
-      difficulty: 3,
-      prompt: "Trusted hobby site requests plugin install through pop-up.",
-      message: "\"Install media codec to continue viewing the gallery.\"",
-      options: [
-        { text: "Install plugin from pop-up", safe: false, explanation: "Compromised legitimate sites can serve malware payloads." },
-        { text: "Decline and exit the page", safe: true, explanation: "Avoiding unsolicited downloads blocks execution risk." }
-      ]
-    },
-    {
-      id: "popup_scareware",
-      title: "Scareware Browser Alert",
-      type: "Malware Lure",
-      difficulty: 1,
-      prompt: "A dramatic pop-up claims your computer has multiple infections.",
-      message: "\"Critical alert. Click now for immediate virus removal.\"",
-      options: [
-        { text: "Run the fake scanner", safe: false, explanation: "Scareware exploits fear to install malware or fake products." },
-        { text: "Close the tab safely", safe: true, explanation: "Browser pages cannot run trusted endpoint scans by default." }
-      ]
-    },
-    {
-      id: "deceptive_billing",
-      title: "Subscription Billing Notice",
-      type: "Deceptive Phishing",
-      difficulty: 2,
-      prompt: "Streaming service email says payment failed and asks for card update.",
-      message: "\"Update billing now or account will be suspended.\"",
-      options: [
-        { text: "Use email link to update card", safe: false, explanation: "Billing panic can redirect users to fake payment portals." },
-        { text: "Open official app and check billing there", safe: true, explanation: "Direct account access avoids fake payment forms." }
-      ]
-    },
-    {
-      id: "evil_twin_wifi",
-      title: "Evil Twin Wi-Fi",
-      type: "Network Attack",
-      difficulty: 4,
-      prompt: "Airport Wi-Fi login asks for your personal email credentials.",
-      message: "\"Sign in with your primary mailbox to access free airport internet.\"",
-      options: [
-        { text: "Authenticate with mailbox account", safe: false, explanation: "Fake captive portals steal credentials on attacker-controlled APs." },
-        { text: "Disconnect and confirm official Wi-Fi SSID", safe: true, explanation: "SSID verification and caution prevent rogue AP compromise." }
-      ]
-    },
-    {
-      id: "search_ad_phish",
-      title: "Search Ad Poisoning",
-      type: "Search Engine Phishing",
-      difficulty: 2,
-      prompt: "Top sponsored result mimics government portal with similar domain.",
-      message: "\"Official tax refund login\" appears as an ad result.",
-      options: [
-        { text: "Click first sponsored result", safe: false, explanation: "Threat actors buy ads to outrank real services." },
-        { text: "Locate official domain in organic results", safe: true, explanation: "Domain authenticity is critical for government services." }
-      ]
-    },
-    {
-      id: "image_phishing",
-      title: "Image-Only Bank Email",
-      type: "Image Phishing",
-      difficulty: 2,
-      prompt: "Email contains only a clickable image that appears to be from your bank.",
-      message: "\"Security update required\" displayed as one full-image link.",
-      options: [
-        { text: "Click image to update security", safe: false, explanation: "Image-based emails can evade simple text filtering." },
-        { text: "Log in to bank through known official route", safe: true, explanation: "Independent access avoids concealed malicious URLs." }
-      ]
-    },
-    {
-      id: "smishing",
-      title: "Parcel Fee SMS",
-      type: "Smishing",
-      difficulty: 1,
-      prompt: "Text asks for a small redelivery payment through unknown link.",
-      message: "\"Pay 1.99 now to release your parcel.\"",
-      options: [
-        { text: "Pay fee from SMS link", safe: false, explanation: "Small payment requests are often used for broad data harvesting." },
-        { text: "Ignore text and use official courier site", safe: true, explanation: "Official courier channels are safer for shipment actions." }
-      ]
-    },
-    {
-      id: "domain_typosquat",
-      title: "Typosquatted Sender Domain",
-      type: "Domain Phishing",
-      difficulty: 3,
-      prompt: "Security email is from microsft-support.com and requests immediate verification.",
-      message: "\"Your account is under attack, verify at once.\"",
-      options: [
-        { text: "Trust it because brand name is close", safe: false, explanation: "Typosquatting relies on visual similarity to trick recipients." },
-        { text: "Reject due to domain misspelling", safe: true, explanation: "Domain precision is a high-confidence validation check." }
-      ]
-    },
-    {
-      id: "mitm_certificate",
-      title: "Certificate Warning",
-      type: "MITM Attack",
-      difficulty: 4,
-      prompt: "Browser warns of invalid certificate on a banking login page at public Wi-Fi.",
-      message: "\"Connection is not private. Attackers might steal your information.\"",
-      options: [
-        { text: "Proceed anyway to continue login", safe: false, explanation: "Certificate interception warnings indicate active trust compromise." },
-        { text: "Disconnect and switch to trusted network", safe: true, explanation: "Never bypass certificate errors on sensitive services." }
-      ]
-    },
-    {
-      id: "social_media_hijack",
-      title: "Compromised Friend Message",
-      type: "Social Media Phishing",
-      difficulty: 2,
-      prompt: "Friend sends out-of-character link saying it is a private video.",
-      message: "\"Is this you in this clip? login here.\"",
-      options: [
-        { text: "Open and sign in through provided link", safe: false, explanation: "Account takeover campaigns spread through trusted contact lists." },
-        { text: "Verify with friend through another channel", safe: true, explanation: "Cross-channel confirmation detects hijacked accounts quickly." }
-      ]
-    }
-  ];
+  let scenarioList = [];
 
   let state = loadState();
   let apiAvailable = false;
@@ -272,6 +32,9 @@
     accuracyStat: document.getElementById("accuracyStat"),
     streakStat: document.getElementById("streakStat"),
     completedStat: document.getElementById("completedStat"),
+    riskStat: document.getElementById("riskStat"),
+    weakStat: document.getElementById("weakStat"),
+    progressChart: document.getElementById("progressChart"),
     timerToggle: document.getElementById("timerToggle"),
     timePerQuestion: document.getElementById("timePerQuestion"),
     startLearningBtn: document.getElementById("startLearningBtn"),
@@ -447,9 +210,9 @@
       return [singleScenarioId];
     }
     if (mode === "challenge") {
-      return shuffle(SCENARIOS.map((s) => s.id)).slice(0, 10);
+      return shuffle(scenarioList.map((s) => s.id)).slice(0, 10);
     }
-    return SCENARIOS.map((s) => s.id);
+    return scenarioList.map((s) => s.id);
   }
 
   function showSession() {
@@ -549,49 +312,63 @@
 
     clearTimer();
     const option = scenario.options[optionIndex];
-    const isCorrect = Boolean(option && option.safe);
-    const points = isCorrect ? (100 + scenario.difficulty * 25) : -20;
-    state.stats.answered += 1;
-    state.stats.score = Math.max(0, state.stats.score + points);
-    state.stats.streak = isCorrect ? state.stats.streak + 1 : 0;
-    state.stats.bestStreak = Math.max(state.stats.bestStreak, state.stats.streak);
-    if (isCorrect) {
-      state.stats.correct += 1;
-      if (!state.stats.completedIds.includes(scenario.id)) {
-        state.stats.completedIds.push(scenario.id);
-      }
-    }
+    const userVerdict = optionIndex === 1 ? "Phishing" : "Safe";
 
-    state.history.unshift({
-      timestamp: new Date().toISOString(),
-      scenarioId: scenario.id,
-      result: isCorrect ? "correct" : "incorrect",
-      mode: state.session.mode,
-      timedOut: Boolean(timedOut)
-    });
-    state.history = state.history.slice(0, 100);
+    submitAnswerToApi(scenario, userVerdict, timedOut)
+      .then((result) => {
+        const verdict = result && result.verdict ? result.verdict : (option && option.safe ? "Phishing" : "Safe");
+        const isCorrect = verdict === userVerdict;
+        const points = isCorrect ? (100 + difficultyPoints(scenario.difficulty) * 25) : -20;
 
-    state.session.answered[answerKey] = true;
-    el.feedbackPanel.classList.remove("hidden");
-    el.feedbackPanel.classList.toggle("ok", isCorrect);
-    el.feedbackPanel.classList.toggle("bad", !isCorrect);
-    el.feedbackTitle.textContent = isCorrect ? "Correct Decision" : "Risky Decision";
-    el.feedbackBody.textContent = timedOut
-      ? `Time expired. ${option.explanation}`
-      : option.explanation;
+        state.stats.answered += 1;
+        state.stats.score = Math.max(0, state.stats.score + points);
+        state.stats.streak = isCorrect ? state.stats.streak + 1 : 0;
+        state.stats.bestStreak = Math.max(state.stats.bestStreak, state.stats.streak);
+        if (isCorrect) {
+          state.stats.correct += 1;
+          if (!state.stats.completedIds.includes(scenario.id)) {
+            state.stats.completedIds.push(scenario.id);
+          }
+        }
 
-    const choiceButtons = el.optionContainer.querySelectorAll(".choice-btn");
-    choiceButtons.forEach((button, idx) => {
-      button.disabled = true;
-      if (idx === optionIndex) {
-        button.classList.add(isCorrect ? "choice-correct" : "choice-wrong");
-      }
-    });
+        state.history.unshift({
+          timestamp: new Date().toISOString(),
+          scenarioId: scenario.id,
+          result: isCorrect ? "correct" : "incorrect",
+          mode: state.session.mode,
+          timedOut: Boolean(timedOut)
+        });
+        state.history = state.history.slice(0, 100);
 
-    updateAchievements();
-    saveState();
-    el.nextBtn.classList.remove("hidden");
-    refreshDashboardData();
+        state.session.answered[answerKey] = true;
+        el.feedbackPanel.classList.remove("hidden");
+        el.feedbackPanel.classList.toggle("ok", isCorrect);
+        el.feedbackPanel.classList.toggle("bad", !isCorrect);
+        el.feedbackTitle.textContent = isCorrect ? "Correct Decision" : "Risky Decision";
+        el.feedbackBody.textContent = buildFeedbackMessage(result, option, timedOut);
+
+        const choiceButtons = el.optionContainer.querySelectorAll(".choice-btn");
+        choiceButtons.forEach((button, idx) => {
+          button.disabled = true;
+          if (idx === optionIndex) {
+            button.classList.add(isCorrect ? "choice-correct" : "choice-wrong");
+          }
+        });
+
+        updateAchievements();
+        saveState();
+        fetchDashboard();
+        el.nextBtn.classList.remove("hidden");
+        refreshDashboardData();
+      })
+      .catch(() => {
+        state.session.answered[answerKey] = true;
+        el.feedbackPanel.classList.remove("hidden");
+        el.feedbackPanel.classList.toggle("ok", false);
+        el.feedbackPanel.classList.toggle("bad", true);
+        el.feedbackTitle.textContent = "Submission Error";
+        el.feedbackBody.textContent = "Unable to submit to server. Please try again.";
+      });
   }
 
   function moveToNextScenario() {
@@ -683,7 +460,7 @@
         ...fallback.stats,
         ...(imported.stats || {}),
         completedIds: Array.isArray(imported.stats && imported.stats.completedIds)
-          ? imported.stats.completedIds.filter((id) => SCENARIOS.some((s) => s.id === id))
+          ? imported.stats.completedIds.filter((id) => scenarioList.some((s) => s.id === id))
           : []
       },
       achievements: Array.isArray(imported.achievements) ? imported.achievements : [],
@@ -741,7 +518,7 @@
   function renderLibrary() {
     el.libraryBody.innerHTML = "";
     const completed = new Set(state.stats.completedIds);
-    SCENARIOS.forEach((scenario) => {
+    scenarioList.forEach((scenario) => {
       const row = document.createElement("tr");
       row.innerHTML = [
         `<td>${escapeHtml(scenario.title)}</td>`,
@@ -763,7 +540,8 @@
     el.scoreStat.textContent = String(state.stats.score);
     el.accuracyStat.textContent = `${accuracy}%`;
     el.streakStat.textContent = String(state.stats.bestStreak);
-    el.completedStat.textContent = `${state.stats.completedIds.length}/${SCENARIOS.length}`;
+    el.completedStat.textContent = `${state.stats.completedIds.length}/${scenarioList.length}`;
+    el.riskStat.textContent = riskFromAccuracy(accuracy);
     el.continueHint.textContent = state.session
       ? `${state.session.mode} - scenario ${state.session.currentIndex + 1}/${state.session.queue.length}`
       : "No active session";
@@ -783,6 +561,7 @@
     refreshDashboardData();
     renderAchievements();
     renderLibrary();
+    fetchDashboard();
     showDashboard();
   }
 
@@ -794,7 +573,7 @@
   }
 
   function getScenarioById(id) {
-    return SCENARIOS.find((s) => s.id === id) || null;
+    return scenarioList.find((s) => s.id === id) || null;
   }
 
   function clearTimer() {
@@ -839,6 +618,7 @@
         }
       }
     }
+    await loadScenarios();
     syncUI();
   }
 
@@ -913,10 +693,12 @@
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
     try {
+      const sessionId = getSessionId();
       const response = await fetch(path, {
         ...options,
         headers: {
           "Content-Type": "application/json",
+          "x-session-id": sessionId,
           ...(options && options.headers ? options.headers : {})
         },
         signal: controller.signal
@@ -928,5 +710,140 @@
     } finally {
       window.clearTimeout(timeout);
     }
+  }
+
+  function riskFromAccuracy(accuracy) {
+    if (accuracy >= 85) return "Low";
+    if (accuracy >= 60) return "Medium";
+    return "High";
+  }
+
+  function getSessionId() {
+    let id = localStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = `s_${Math.random().toString(36).slice(2)}_${Date.now().toString(36)}`;
+      localStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  }
+
+  async function fetchDashboard() {
+    if (!apiAvailable) {
+      renderProgressChart([]);
+      return;
+    }
+    try {
+      const data = await apiRequest("/api/dashboard", { method: "GET" });
+      if (data) {
+        if (Array.isArray(data.weakAreas) && data.weakAreas.length > 0) {
+          el.weakStat.textContent = data.weakAreas[0];
+        } else {
+          el.weakStat.textContent = "-";
+        }
+        renderProgressChart(Array.isArray(data.progress) ? data.progress : []);
+      }
+    } catch (error) {
+      renderProgressChart([]);
+    }
+  }
+
+  function renderProgressChart(samples) {
+    if (!el.progressChart) {
+      return;
+    }
+    if (!samples || samples.length === 0) {
+      el.progressChart.innerHTML = "<p class=\"mono\">No progress data yet.</p>";
+      return;
+    }
+    const width = 600;
+    const height = 120;
+    const padding = 12;
+    const values = samples.map((s) => Number(s.accuracy || 0));
+    const max = Math.max(100, ...values);
+    const min = Math.min(0, ...values);
+    const step = (width - padding * 2) / Math.max(1, values.length - 1);
+
+    const points = values.map((val, i) => {
+      const x = padding + i * step;
+      const y = height - padding - ((val - min) / (max - min || 1)) * (height - padding * 2);
+      return `${x},${y}`;
+    });
+
+    const path = `M ${points.join(" L ")}`;
+    el.progressChart.innerHTML = `
+      <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+        <polyline points="${points.join(" ")}" fill="none" stroke="#0f766e" stroke-width="3"/>
+        <path d="${path}" fill="none" stroke="rgba(15,118,110,0.2)" stroke-width="10" stroke-linecap="round"/>
+      </svg>
+    `;
+  }
+  async function loadScenarios() {
+    try {
+      if (!apiAvailable) {
+        scenarioList = [];
+        return;
+      }
+      const response = await apiRequest("/api/scenarios", { method: "GET" });
+      scenarioList = Array.isArray(response.scenarios) ? normalizeScenarioResponse(response.scenarios) : [];
+    } catch (error) {
+      scenarioList = [];
+    }
+  }
+
+  function normalizeScenarioResponse(items) {
+    return items
+      .filter((item) => item && item.id)
+      .map((item) => ({
+        id: String(item.id),
+        title: item.title || item.id,
+        type: item.type || "unknown",
+        difficulty: normalizeDifficulty(item.difficulty),
+        prompt: item.content || "",
+        message: "",
+        options: [
+          { text: "Mark as Safe", safe: false, explanation: "Rule-based analysis pending." },
+          { text: "Mark as Phishing", safe: true, explanation: "Rule-based analysis pending." }
+        ],
+        indicators: Array.isArray(item.indicators) ? item.indicators : []
+      }));
+  }
+
+  function normalizeDifficulty(value) {
+    if (value === "easy" || value === "medium" || value === "hard") {
+      return value;
+    }
+    return "medium";
+  }
+
+  function difficultyPoints(value) {
+    if (value === "hard") return 3;
+    if (value === "medium") return 2;
+    return 1;
+  }
+
+  async function submitAnswerToApi(scenario, userVerdict, timedOut) {
+    if (!apiAvailable) {
+      return null;
+    }
+    return apiRequest("/api/submit", {
+      method: "POST",
+      body: JSON.stringify({
+        scenarioId: scenario.id,
+        content: scenario.prompt || scenario.content || "",
+        indicators: scenario.indicators || [],
+        userVerdict,
+        timedOut: Boolean(timedOut)
+      })
+    });
+  }
+
+  function buildFeedbackMessage(result, option, timedOut) {
+    if (!result) {
+      return timedOut ? `Time expired. ${option.explanation}` : option.explanation;
+    }
+    const reasons = Array.isArray(result.reasons) ? result.reasons.join(" ") : "";
+    return timedOut
+      ? `Time expired. ${reasons || option.explanation}`
+      : reasons || option.explanation;
   }
 })();

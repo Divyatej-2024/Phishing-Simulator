@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AegisPhish Lab Admin</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Admin Console</p>
+        <h1>AegisPhish Lab</h1>
+      </div>
+    </header>
+
+    <section class="panel stack">
+      <h2>Scenario Manager</h2>
+      <label for="adminKey">Admin Key</label>
+      <input id="adminKey" type="password" placeholder="Enter ADMIN_KEY">
+      <label for="scenarioJson">Scenario JSON (array)</label>
+      <textarea id="scenarioJson" rows="10" style="width:100%; border:1px solid #b9c6c3; border-radius:10px; padding:12px; font:inherit;"></textarea>
+      <div class="button-row">
+        <button id="loadBtn" type="button">Load Scenarios</button>
+        <button id="upsertBtn" type="button">Upsert Scenarios</button>
+      </div>
+      <p class="mono" id="statusText"></p>
+    </section>
+
+    <section class="panel">
+      <h3>Existing Scenarios</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Difficulty</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="scenarioTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

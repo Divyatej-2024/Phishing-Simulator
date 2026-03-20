@@ -1,9 +1,8 @@
+const scenarioService = require("../services/scenarioService");
+
 const getScenarios = async (req, res) => {
-  // Placeholder until Step 3 wires MongoDB + scenario service.
-  res.json({
-    scenarios: [],
-    message: "Scenario engine connected. Load scenarios in Step 3."
-  });
+  const scenarios = scenarioService.getAll();
+  res.json({ scenarios });
 };
 
 module.exports = { getScenarios };
