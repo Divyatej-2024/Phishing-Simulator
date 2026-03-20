@@ -1,0 +1,2832 @@
+===== .gitignore =====
+node_modules/
+data/
+
+
+
+===== anph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 8: Angler Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="social-media-theme" onload="checkLogin(); updateProgressBar();">
+ <div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 8: Angler Phishing</h2>
+  <p>Your flight was delayed, so you post a complaint on social media, tagging the airline. Moments later, you get a reply from another account with a similar name and logo. They apologize and ask you to send them a direct message with your booking reference and passport number to "expedite your compensation claim."</p>
+  <div class="scenario-box">
+    <p><b>BritainAirHelp:</b>  "We are so sorry for the delay. Please DM us your full name, booking reference, and passport number so we can assist you with your claim immediately."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Scammers monitor social media for customer complaints. They create fake support accounts (angler phishing) to trick you into giving them sensitive personal data, which can be used for identity theft.')">Send them your details via DM</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You should always verify the social media account is the official, verified one (look for a blue checkmark or high follower count). Never share sensitive data like a passport number in a DM.'); proceedToNextLevel();">Check the account's profile and see it's fake</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== clph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 9: Clone Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div id="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 9: Clone Phishing</h2>
+  <p>You receive an email that looks identical to a shipping confirmation you got yesterday from a major online retailer. This new email says there's been an "update" to your order. It has all the same graphics and text, but it asks you to click a new link to view the changes.</p>
+  <div class="scenario-box">
+    <p><b>From: Online Retailer</b><br>"There has been an important update to your recent order #845-1934710. Please click here to view the updated invoice and delivery details."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is a clone phishing attack. The attacker took a legitimate email and replaced the real link with a malicious one. Your familiarity with the original email is used to lower your guard.')">Click the new link</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! It is highly suspicious to receive a second, nearly identical email with a different link. The safest action is to go directly to the retailer\'s official website and check your order status there.'); proceedToNextLevel();">Go to the official website to check your order</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== cookie.js =====
+/* FILE: cookie.js */
+
+function login(event) {
+  event.preventDefault();
+  let user = document.getElementById("username").value.trim();
+  if (!user) {
+    alert("Please enter a username.");
+    return;
+  }
+  document.cookie = "player=" + encodeURIComponent(user) + "; path=/; SameSite=Lax";
+  window.location.href = "menu.html";
+}
+
+function checkLogin() {
+  if (!getUsername()) {
+    alert("Please login first!");
+    window.location.href = "index.html";
+  }
+}
+
+function logout() {
+  document.cookie = "player=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  window.location.href = "index.html";
+}
+
+// NEW FUNCTION TO FETCH THE USERNAME
+function getUsername() {
+  const cookies = document.cookie.split(';'); // Split all cookies into an array
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim(); // Remove whitespace
+    // Check if this cookie string begins with "player="
+    if (cookie.startsWith('player=')) {
+      // If it does, return the value after "player="
+      return decodeURIComponent(cookie.substring('player='.length, cookie.length));
+    }
+  }
+  // Return null if the cookie wasn't found
+  return null;
+}
+
+
+
+===== dcph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 13: Deceptive Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 13: Deceptive Phishing</h2>
+  <p>You get an email from "Netflix" with the subject "Account Suspension Notice". It says your payment method was declined and your account will be closed unless you update your billing information immediately via the provided link.</p>
+  <div class="scenario-box">
+    <p><b>From: Netflix Support</b><br>"We're having some trouble with your current billing information. Please visit this link to update your payment method to avoid service interruption."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This deceptive email creates a false sense of urgency to trick you into clicking. The link leads to a fake Netflix page designed to steal your login and credit card details.')">Click the link and update your details</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! Never trust links in emails regarding payment issues. Always log in to your account directly through the official website or app to check your billing status.'); proceedToNextLevel();">Open a new tab and go to Netflix.com directly</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== dmph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 18: Domain Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 18: Domain Phishing (Typosquatting)</h2>
+  <p>You get a "Security Alert" email that seems to be from Microsoft. It says there was an unusual sign-in to your account. The sender's email address is "security@microsft.com". It urges you to click a link to verify your recent activity.</p>
+  <div class="scenario-box">
+    <p><b>From: security@microsft.com</b><br>"We detected an unusual sign-in attempt. If this wasn't you, please secure your account here."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! You missed the typo in the domain name: `microsft` instead of `microsoft`. This is a classic typosquatting technique used in domain phishing to trick you into trusting a fake source.')">Click the link to secure the account</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You spotted the subtle but critical spelling mistake in the sender\'s domain. This is a clear sign of a phishing attempt. The correct action is to ignore the email.'); proceedToNextLevel();">Notice the typo and delete the email</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+</div>
+</body>
+</html>
+
+
+===== emph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 7: Email Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="level-style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 7: Email Phishing</h2>
+  <p>You receive an email with the subject "Your Package Delivery Has Failed". It's from a generic sender like "Mail Service" and has several grammatical errors. It instructs you to click a link to rearrange delivery.</p>
+  <div class="scenario-box">
+    <p><b>From: Mail Service</b><br>"Dear Valued Customer, We regret to inform you that we cud not deliver your parcel today. To shedule a new delivery please click here immediatly or your parcel will be returned."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Poor grammar, a generic greeting, and a sense of urgency are all classic signs of a phishing email. Clicking the link would likely lead to a malicious site asking for personal or payment details.')">Click the link to reschedule</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You spotted the red flags. Legitimate companies usually have professional communication. The best action is to delete the email and check any real tracking numbers on the official courier website.'); proceedToNextLevel();">Delete the email</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+</div>
+</body>
+</html>
+
+
+===== end.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Completed</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkLogin(); renderEndSummary();">
+  <div class="container">
+    <h2>Congratulations!</h2>
+    <p id="completion-summary">You have completed the phishing simulation.</p>
+    <div class="button-container">
+      <a href="menu.html">Back to Menu</a>
+      <button onclick="logout()" class="btn-logout">Logout</button>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+===== etph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 14: Evil Twin Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+<div id="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 14: Evil Twin Phishing</h2>
+  <p>You're at the airport and open your laptop to connect to Wi-Fi. You see two available networks: "SunderlandAirport_FreeWiFi" and "SunderlandAirport_WiFi". You connect to the first one, which has a stronger signal. A portal page appears, asking you to sign in with your Google account to get internet access.</p>
+  <div class="scenario-box">
+    <p><b>WiFi Portal:</b> "Welcome to Sunderland Airport! Get free internet access by logging in with your Google or Facebook account."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! You connected to an \'Evil Twin\' network. It\'s a fake Wi-Fi hotspot set up by a hacker. The login page is a phishing form to steal your Google credentials. They can then see all your internet traffic.')">Log in with your Google account</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! Be wary of public Wi-Fi. An evil twin attack lures you onto a malicious network. Never log in with sensitive accounts on a captive portal and always confirm the official network name with staff if possible.'); proceedToNextLevel();">Disconnect and ask airport staff for the official Wi-Fi name</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+</div>
+</body>
+</html>
+
+
+===== game.js =====
+/* FILE: game.js */
+// Manages level progression and progress bar
+
+const levelOrder = [
+  'soceng.html', 'phar.html', 'whl.html', 'wesp.html', 'sph.html',
+  'htph.html', 'emph.html', 'anph.html', 'clph.html', 'viph.html',
+  'whph.html', 'puph.html', 'dcph.html', 'etph.html', 'seph.html',
+  'iph.html', 'smh.html', 'dmph.html', 'mitm.html', 'smph.html'
+];
+
+const COMPLETED_LEVELS_KEY = 'phishingSimCompletedLevels';
+const LAST_PLAYED_INDEX_KEY = 'phishingSimLastPlayedIndex';
+
+function getCurrentLevelIndex() {
+  const currentPage = window.location.pathname.split("/").pop();
+  return levelOrder.indexOf(currentPage);
+}
+
+function getCompletedLevels() {
+  try {
+    const raw = localStorage.getItem(COMPLETED_LEVELS_KEY);
+    if (!raw) {
+      return [];
+    }
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+    return parsed
+      .filter((value) => Number.isInteger(value) && value >= 0 && value < levelOrder.length)
+      .sort((a, b) => a - b);
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveCompletedLevels(completedIndexes) {
+  const uniqueSorted = [...new Set(completedIndexes)].sort((a, b) => a - b);
+  localStorage.setItem(COMPLETED_LEVELS_KEY, JSON.stringify(uniqueSorted));
+}
+
+function markLevelCompleted(levelIndex) {
+  if (!Number.isInteger(levelIndex) || levelIndex < 0) {
+    return;
+  }
+  const completed = getCompletedLevels();
+  if (!completed.includes(levelIndex)) {
+    completed.push(levelIndex);
+    saveCompletedLevels(completed);
+  }
+}
+
+function setLastPlayedIndex(levelIndex) {
+  if (!Number.isInteger(levelIndex) || levelIndex < 0) {
+    return;
+  }
+  localStorage.setItem(LAST_PLAYED_INDEX_KEY, String(levelIndex));
+}
+
+function getLastPlayedIndex() {
+  const raw = localStorage.getItem(LAST_PLAYED_INDEX_KEY);
+  const parsed = Number(raw);
+  if (!Number.isInteger(parsed) || parsed < 0 || parsed >= levelOrder.length) {
+    return 0;
+  }
+  return parsed;
+}
+
+function getFirstUnfinishedLevelIndex() {
+  const completed = new Set(getCompletedLevels());
+  for (let i = 0; i < levelOrder.length; i += 1) {
+    if (!completed.has(i)) {
+      return i;
+    }
+  }
+  return levelOrder.length - 1;
+}
+
+function proceedToNextLevel() {
+  const currentIndex = getCurrentLevelIndex();
+  if (currentIndex !== -1) {
+    markLevelCompleted(currentIndex);
+  }
+
+  if (currentIndex !== -1 && currentIndex < levelOrder.length - 1) {
+    const nextLevel = levelOrder[currentIndex + 1];
+    setLastPlayedIndex(currentIndex + 1);
+    window.location.href = nextLevel;
+  } else {
+    setLastPlayedIndex(levelOrder.length - 1);
+    window.location.href = 'end.html';
+  }
+}
+
+function updateProgressBar() {
+  const currentIndex = getCurrentLevelIndex();
+  const completedCount = getCompletedLevels().length;
+  if (currentIndex !== -1) {
+    setLastPlayedIndex(currentIndex);
+    const progressed = Math.max(currentIndex + 1, completedCount);
+    const progressPercent = (progressed / levelOrder.length) * 100;
+    const progressBar = document.getElementById('progress-bar') || document.getElementById('Progress-bar');
+    if(progressBar) {
+        progressBar.style.width = progressPercent + '%';
+    }
+  }
+}
+
+function updateProgresBar() {
+  updateProgressBar();
+}
+
+function updateprogressbar() {
+  updateProgressBar();
+}
+
+/* Replace the existing displayUsername function in game.js with this one */
+
+function displayUsername() {
+    const user = getUsername(); // Calls the function from cookie.js
+    if (user) {
+        // Update the main welcome message if it exists on the page
+        const welcomeMessage = document.getElementById('welcome-message');
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome, ${user}!`;
+        }
+
+        // Update the in-level player name placeholder if it exists
+        const playerNameSpan = document.getElementById('playerName');
+        if (playerNameSpan) {
+            playerNameSpan.textContent = user;
+        }
+    }
+}
+
+function renderMenuProgress() {
+  const menuLinks = document.querySelectorAll('a.menu-link');
+  if (!menuLinks.length) {
+    return;
+  }
+
+  const completed = new Set(getCompletedLevels());
+
+  menuLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    const levelIndex = levelOrder.indexOf(href);
+    if (levelIndex === -1) {
+      return;
+    }
+
+    if (link.querySelector('.status-badge')) {
+      return;
+    }
+
+    const badge = document.createElement('span');
+    badge.className = 'status-badge';
+    if (completed.has(levelIndex)) {
+      badge.classList.add('status-complete');
+      badge.textContent = 'Completed';
+    } else {
+      badge.classList.add('status-pending');
+      badge.textContent = 'Pending';
+    }
+    link.appendChild(document.createTextNode(' '));
+    link.appendChild(badge);
+  });
+
+  const summary = document.getElementById('menu-summary');
+  if (summary) {
+    summary.textContent = `Progress: ${completed.size}/${levelOrder.length} levels completed`;
+  }
+
+  const resumeLink = document.getElementById('resume-link');
+  if (resumeLink) {
+    const firstUnfinishedIndex = getFirstUnfinishedLevelIndex();
+    const lastPlayedIndex = getLastPlayedIndex();
+    const resumeIndex = completed.has(lastPlayedIndex) ? firstUnfinishedIndex : lastPlayedIndex;
+    const allDone = completed.size === levelOrder.length;
+    resumeLink.href = allDone ? 'end.html' : levelOrder[resumeIndex];
+    resumeLink.textContent = allDone ? 'View Completion Page' : 'Resume Training';
+  }
+}
+
+function renderEndSummary() {
+  const completedCount = getCompletedLevels().length;
+  const summary = document.getElementById('completion-summary');
+  if (!summary) {
+    return;
+  }
+  if (completedCount >= levelOrder.length) {
+    summary.textContent = `Excellent work. You completed all ${levelOrder.length} levels.`;
+  } else {
+    summary.textContent = `You completed ${completedCount} of ${levelOrder.length} levels. Continue from the menu to finish the simulator.`;
+  }
+}
+
+function resetGameProgress() {
+  localStorage.removeItem(COMPLETED_LEVELS_KEY);
+  localStorage.removeItem(LAST_PLAYED_INDEX_KEY);
+  window.location.href = 'menu.html';
+}
+
+function confirmResetGameProgress() {
+  const shouldReset = window.confirm('Reset your saved training progress?');
+  if (shouldReset) {
+    resetGameProgress();
+  }
+}
+
+
+
+===== htph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 6: HTTPS Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 6: HTTPS Phishing</h2>
+  <p>You get an email about a security update for your cloud storage account. You click the link and your browser shows a padlock icon and "https://" in the address bar, indicating a secure connection. The URL is "https://www.dropbox-security-update.com". The page asks you to log in to apply the update.</p>
+  <div class="scenario-box">
+    <p><b>Website Prompt:</b> "Your account is not protected by our latest security patch. Please sign in to continue."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! While HTTPS is good, scammers can also get SSL certificates for their fake sites. The real danger here is the domain name—it is not the official `dropbox.com`. The padlock only means your connection to the FAKE server is encrypted.')">Log in since the connection is secure</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You wisely looked beyond the padlock and identified the fake domain name. A secure connection to a fraudulent website is still fraudulent. Never trust a site based on the padlock alone.'); proceedToNextLevel();">Check the domain name and realize it's fake</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== iph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 16: Image Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 16: Image Phishing</h2>
+  <p>You receive an email from your bank with what looks like a screenshot of a secure message. The entire body of the email is just one large image. The text within the image says "A secure message is waiting for you. Click anywhere below to log in and view it."</p>
+  <div class="scenario-box">
+    <p><b>Email Body:</b><br><img src="img_mail.png" alt="image" width="40%"></p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is image phishing. The entire image is a single hyperlink to a malicious website. Attackers use this method to bypass email spam filters that are designed to read text, not text within an image.')">Click the image</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You recognized that a legitimate bank would never send important information this way. Hovering over the image would reveal a suspicious URL. The safe approach is to log in to your bank via its official website.'); proceedToNextLevel();">Delete the email and log in to your bank's website directly</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+</div>
+</body>
+</html>
+
+
+===== level-style.css =====
+/* FILE: level-style.css */
+#email-theme { background-color: #eaf1fb; }
+#email-theme .opc{background: fixed; background-image: linear-gradient(180deg, #0F2027, #2C5364);}
+#email-theme .scenario-box { border-left: 5px solid #4a90e2; }
+
+#website-theme { background: linear-gradient(135deg, #ece9e6, #ffffff); }
+#website-theme .scenario-box { box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 3px solid #fca311; }
+
+#social-media-theme { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
+
+#mobile-theme .scenario-box { background-color: #2a9d8f; color: white; border-radius: 20px; }
+#mobile-theme .scenario-box b { color: #e9c46a; }
+
+#corporate-theme { background-color: #e5e5e5; }
+#corporate-theme .container { border-top: 5px solid #023047; }
+
+#alert-theme { background-color: #212529; }
+#alert-theme .scenario-box { border: 2px dashed #e63946; background-color: #ffcdd2; color: #c62828; }
+#alert-theme h2 { color: #e63946; }
+
+
+
+===== menu.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phishing Simulator - Menu</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkLogin(); displayUsername(); renderMenuProgress();">
+  <div class="container">
+    <h2 id="welcome-message">Welcome!</h2>
+    <p id="menu-summary">Progress: 0/20 levels completed</p>
+    <div class="button-container">
+      <a id="resume-link" href="soceng.html">Resume Training</a>
+      <button class="btn-logout" onclick="confirmResetGameProgress()">Reset Progress</button>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+    <h3>Choose a Level</h3>
+    <a href="soceng.html" class="menu-link">Social Engineering</a>
+    <a href="phar.html" class="menu-link">Pharming</a>
+    <a href="whl.html" class="menu-link">Whaling</a>
+    <a href="wesp.html" class="menu-link">Website Spoofing</a>
+    <a href="sph.html" class="menu-link">Spear Phishing</a>
+    <a href="htph.html" class="menu-link">HTTPS Phishing</a>
+    <a href="emph.html" class="menu-link">Email Phishing</a>
+    <a href="anph.html" class="menu-link">Angler Phishing</a>
+    <a href="clph.html" class="menu-link">Clone Phishing</a>
+    <a href="viph.html" class="menu-link">Vishing</a>
+    <a href="whph.html" class="menu-link">Waterhole Phishing</a>
+    <a href="puph.html" class="menu-link">Pop-up Phishing</a>
+    <a href="dcph.html" class="menu-link">Deceptive Phishing</a>
+    <a href="etph.html" class="menu-link">Evil Twin Phishing</a>
+    <a href="seph.html" class="menu-link">Search Engine Phishing</a>
+    <a href="iph.html" class="menu-link">Image Phishing</a>
+    <a href="smh.html" class="menu-link">Smishing</a>
+    <a href="dmph.html" class="menu-link">Domain Phishing</a>
+    <a href="mitm.html" class="menu-link">Man-in-the-Middle attacks</a>
+    <a href="smph.html" class="menu-link">Social Media Phishing</a>
+    <br>
+    <a href="end.html">Finish Game</a>
+  </div>
+</body>
+</html>
+
+
+
+===== mitm.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 19: Man-in-the-Middle</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 19: Man-in-the-Middle Attacks</h2>
+  <p>You're using the free Wi-Fi at a local cafe to do some online banking. You type in your bank's address, the page loads, and it has the correct URL and even a security padlock. However, your browser gives you a brief warning that the "site's security certificate is not trusted," but gives you an option to proceed anyway.</p>
+  <div class="scenario-box">
+    <p><b>Browser Warning:</b> "Your connection is not private. Attackers might be trying to steal your information... [Proceed to site (unsafe)]"</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This warning is a classic sign of a Man-in-the-Middle (MITM) attack on public Wi-Fi. An attacker is intercepting your connection and presenting a fake certificate. Proceeding would send your login details directly to them.')">Proceed to the site anyway</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You must NEVER ignore certificate warnings, especially for sensitive sites. This indicates your connection is being monitored. The only safe option is to disconnect from the Wi-Fi and use a trusted network or your mobile data.'); proceedToNextLevel();">Heed the warning and disconnect from the Wi-Fi</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== package.json =====
+{
+  "name": "aegisphish-lab",
+  "version": "1.0.0",
+  "description": "Full stack phishing training lab",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
+
+
+
+===== phar.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 2: Pharming</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 2: Pharming</h2>
+  <p>You're trying to access your online bank, "MyBank." You type the address into your browser, but the page that loads looks slightly off - the logo is a bit blurry and the colors are not quite right. The URL in the address bar reads "www.mybank-login-portal.com".</p>
+  <div class="scenario-box">
+    <p><b>Website Prompt:</b> "Welcome! Please enter your account number and password to access your secure portal."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('Wrong! This is a classic pharming attack. The malicious site looks real, but its goal is to steal your login details. Entering your information would give them full access to your bank account.')">Enter your login details</button>
+  <button class="btn-choice" onclick="alert('Correct! You noticed the suspicious URL. The real domain is likely just `mybank.com`. Pharming relies on fake websites hosted on slightly different domains to trick users.'); proceedToNextLevel();">Close the tab and check the official bank URL</button>
+  </div>
+  <br><br>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+
+===== puph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 12: Pop-up Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="alert-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 12: Pop-up Phishing</h2>
+  <p>While browsing a news article, a large, flashing red pop-up window takes over your screen. It looks like a system alert and loudly proclaims: "WARNING! Your computer is infected with 5 viruses! Immediate action required!" It has a button to "Scan and Remove Viruses Now".</p>
+  <div class="scenario-box">
+    <p><b>Pop-up Alert:</b> "Your system is at risk. We have detected spyware and malware. Click here for a free scan to protect your data."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('Wrong! This is a classic scareware pop-up. Clicking it would either download actual malware or lead you to a fraudulent site asking for payment for a fake antivirus product.')">Click the button to scan</button>
+  <button class="btn-choice" onclick="alert('Correct! Browsers cannot scan your computer for viruses. This is a fake warning designed to scare you. The only safe action is to carefully close the pop-up window or the entire browser tab.'); proceedToNextLevel();">Close the pop-up window</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+
+===== seph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 15: Search Engine Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 15: Search Engine Phishing</h2>
+  <p>You need to file your taxes and search online for the official HMRC self-assessment portal. The very first result is an ad, marked with a small "Ad" label, with the title "HMRC Official Site - File Your Taxes Online". The URL looks plausible: "hmrc-online-filing.co.uk".</p>
+  <div class="scenario-box">
+    <p><b>Search Result (Ad):</b> "HMRC Official Site - File Your Taxes Online. Quick and easy self-assessment. Click here to log in."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Scammers buy search ads to appear above the real results. This link leads to a phishing site designed to look exactly like the real HMRC portal to steal your Government Gateway login and personal data.')">Click the ad link</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! You wisely chose to skip the paid ads. The official UK government domain is always `gov.uk`. Scammers often use misleading domains like `.co.uk` or `.com` for their fake sites. Always scroll down to the organic search results for official sites.'); proceedToNextLevel();">Skip the ad and find the link with `gov.uk`</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== server.js =====
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const DATA_DIR = path.join(__dirname, "data");
+const DATA_FILE = path.join(DATA_DIR, "users.json");
+const PUBLIC_DIR = path.join(__dirname, "public");
+
+app.use(express.json({ limit: "1mb" }));
+app.use(express.static(PUBLIC_DIR));
+
+function ensureDataFile() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(DATA_FILE)) {
+    fs.writeFileSync(DATA_FILE, JSON.stringify({ users: {}, nameIndex: {} }, null, 2));
+  }
+}
+
+function loadData() {
+  ensureDataFile();
+  try {
+    const raw = fs.readFileSync(DATA_FILE, "utf8");
+    const parsed = JSON.parse(raw);
+    if (!parsed.users || !parsed.nameIndex) {
+      return { users: {}, nameIndex: {} };
+    }
+    return parsed;
+  } catch (error) {
+    return { users: {}, nameIndex: {} };
+  }
+}
+
+function saveData(data) {
+  ensureDataFile();
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+}
+
+function normalizeName(name) {
+  return String(name || "").trim().toLowerCase();
+}
+
+function getUserIdFromRequest(req) {
+  return req.header("x-user-id") || "";
+}
+
+app.get("/api/health", (req, res) => {
+  res.json({ ok: true });
+});
+
+app.post("/api/login", (req, res) => {
+  const name = (req.body && req.body.name) ? String(req.body.name).trim() : "";
+  if (!name) {
+    res.status(400).json({ error: "Name required" });
+    return;
+  }
+
+  const data = loadData();
+  const key = normalizeName(name);
+  let userId = data.nameIndex[key];
+
+  if (!userId) {
+    userId = `u_${crypto.randomUUID()}`;
+    data.nameIndex[key] = userId;
+    data.users[userId] = {
+      id: userId,
+      name,
+      state: null,
+      updatedAt: new Date().toISOString()
+    };
+    saveData(data);
+  }
+
+  const user = data.users[userId];
+  res.json({ userId, state: user ? user.state : null });
+});
+
+app.get("/api/state", (req, res) => {
+  const userId = getUserIdFromRequest(req);
+  if (!userId) {
+    res.status(401).json({ error: "Missing user id" });
+    return;
+  }
+  const data = loadData();
+  const user = data.users[userId];
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+  res.json(user.state || null);
+});
+
+app.post("/api/state", (req, res) => {
+  const userId = getUserIdFromRequest(req);
+  if (!userId) {
+    res.status(401).json({ error: "Missing user id" });
+    return;
+  }
+  const data = loadData();
+  const user = data.users[userId];
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+  user.state = req.body || null;
+  user.updatedAt = new Date().toISOString();
+  data.users[userId] = user;
+  saveData(data);
+  res.json({ ok: true });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(PUBLIC_DIR, "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`AegisPhish Lab running on http://localhost:${PORT}`);
+});
+
+
+
+===== smh.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 17: Smishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="mobile-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 17: Smishing (SMS Phishing)</h2>
+  <p>You get a text message on your phone from an unknown number. It reads: "Royal Mail: Your parcel has been held at our depot. A £1.99 shipping fee is required for redelivery. Please visit: track-my-item.net to pay."</p>
+  <div class="scenario-box">
+    <p><b>SMS Message:</b> "Royal Mail: Your parcel has a pending shipping fee. Visit track-my-item.net to resolve this."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is a smishing scam. The link leads to a fake website that will steal your name, address, and credit card details for a tiny fee, but the real prize for them is your data.')">Tap the link to pay the fee</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! Legitimate couriers do not typically ask for payment details via text. The suspicious, non-official URL is a huge red flag. You should always use the official website or app to track parcels.'); proceedToNextLevel();">Delete the message</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== smph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 20: Social Media Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="social-media-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 20: Social Media Phishing</h2>
+  <p>You get a direct message on Instagram from a close friend. The message is unusual and just says, "lol I can't believe you posted this embarrassing video of yourself" along with a suspicious-looking link from a URL shortener.</p>
+  <div class="scenario-box">
+    <p><b>Friend's DM:</b> "OMG is this really you?? 🤣 [bit.ly/random-link]"</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Your friend\'s account was likely hacked. Clicking the link would take you to a fake Instagram login page. Entering your details would compromise your own account, and the scam would then be sent to all of your friends.')">Click the link to see the video</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a very common account takeover scam. The out-of-character message and suspicious link are red flags. The best thing to do is to contact your friend through a different method (like a text) to let them know their account is compromised.'); proceedToNextLevel();">Message your friend separately to warn them</button>
+</div>
+  <a href="menu.html">Back to Menu</a>
+</div>
+</body>
+</html>
+
+
+===== soceng.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 1: Social Engineering</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 1: Social Engineering</h2>
+  <p>You receive an urgent call from someone claiming to be from your company's IT Help Desk. They say your account has been flagged for suspicious activity and they need to verify your identity immediately to prevent a lockdown.</p>
+  <div class="scenario-box">
+    <p><b>Caller (IT Help Desk):</b> "Hi, this is Mark from IT. We've detected a security breach linked to your account. To secure it, I need you to confirm your username and password right now."</p>
+  </div>
+  <br>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Legitimate IT support will never ask for your password directly. This is a common tactic to trick you into giving up your credentials.')">Give them the password</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! Always be suspicious of unsolicited calls asking for sensitive information. You should hang up and call the official IT Help Desk number yourself to verify the request.'); proceedToNextLevel();">Decline and say you'll call the official Help Desk number</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== sph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 5: Spear Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="level-style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar(); displayUsername();">
+ <div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 5: Spear Phishing</h2>
+  <p>You receive an email from "HR" mentioning a conference you recently attended, which you had posted about on LinkedIn. The email says you're eligible for expense reimbursement and just need to log into the "new" payroll portal to confirm your details.</p>
+  <div class="scenario-box">
+    <p><b>From: HR Department</b><br>"Hi <span id="playerName"></span>, hope you had a great time at the Synergy 2025 conference! Please log in to our new portal via this link to submit your expense report. Your old credentials will work."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Clicking the link would take you to a fake login page designed to steal your company credentials. The specific details about the conference make it seem legitimate, but it\'s a trap.')">Click the link and log in</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a spear phishing attack. It uses personal information to gain your trust. You should never click links in unexpected emails. Instead, navigate to the company portal through your usual bookmarks or internal company page.'); proceedToNextLevel();">Ignore the link and go to the official portal manually</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== style.css =====
+/* FILE: style.css */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+h2 {
+  color: #1d3557;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #457b9d;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #e63946;
+}
+
+.menu-link {
+    display: block;
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+#menu-summary {
+  margin: 10px 0 20px;
+  color: #495057;
+}
+
+.scenario-box {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+  text-align: left;
+  line-height: 1.6;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.scenario-box b { color: #005f73; }
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+button {
+  border: none;
+  padding: 12px 24px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 150px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button-container a {
+  border: 1px solid #ced4da;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: #e9ecef;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.btn-choice {
+  background-color: #e9ecef;
+  color: #343a40;
+  border: 1px solid #ced4da;
+}
+
+.btn-logout {
+    background-color: #e63946;
+    color: white;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
+.status-complete {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+}
+
+#progress-container {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 10px;
+}
+
+#progress-bar {
+    width: 0%; /* Starts at 0, JS will update this */
+    height: 10px;
+    background-color: #457b9d;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+}
+
+
+
+===== viph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 10: Vishing (Voice Phishing)</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="level-style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 10: Vishing (Voice Phishing)</h2>
+  <p>You receive an automated phone call. A recorded voice claims to be from HMRC and states that a lawsuit has been filed against you for tax evasion. It warns that local police will arrest you within the hour unless you press 1 to speak with an agent immediately to settle your case.</p>
+  <div class="scenario-box">
+    <p><b>Robocall:</b> "[BEEP] This is an urgent message from HM Revenue and Customs. An arrest warrant has been issued under your name. To avoid legal consequences, press 1 now."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! Government agencies like HMRC will never use threatening robocalls. This is a vishing scam designed to create panic and rush you into making a payment, often through untraceable methods like gift cards.')">Press 1 to speak to an agent</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a high-pressure scare tactic. The correct action is to hang up immediately. If you are concerned about your taxes, you should independently find the official HMRC contact number and call them yourself.'); proceedToNextLevel();">Hang up the phone</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== wesp.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 4: Website Spoofing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="website-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 4: Website Spoofing</h2>
+  <p>You see a social media ad for an incredible deal: a new pair of premium headphones for 90% off. You click the link and are taken to a slick-looking online store. The URL is "dealz-4-u.shop". Everything looks legitimate.</p>
+  <div class="scenario-box">
+    <p><b>Website:</b> "Flash Sale! Enter your name, address, and credit card information to claim this limited-time offer!"</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! This is a spoofed website. Scammers create fake e-commerce sites with unbelievable deals to harvest credit card details. You would be charged and receive nothing.')">Enter your payment information</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! If a deal seems too good to be true, it probably is. Unfamiliar URLs and extreme discounts are major warning signs of a spoofed retail website.'); proceedToNextLevel();">Close the website</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== whl.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 3: Whaling</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-style.css">
+</head>
+<body id="email-theme" onload="checkLogin(); updateProgressBar();">
+  <div class="container">
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 3: Whaling</h2>
+  <p>You work in the finance department. You receive an email that appears to be from your CEO. It's marked URGENT and says she's in a last-minute meeting and needs you to process an immediate wire transfer to a new vendor to close a confidential deal.</p>
+  <div class="scenario-box">
+    <p><b>From: CEO@finder.com</b><br>"I need you to wire $50,000 to the attached account details immediately. This is critical for the Project Alpha acquisition. Do not speak to anyone about this until the deal is public. Let me know once it's done."</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('❌ Wrong! High-pressure tactics and requests to bypass normal procedures are huge red flags. Sending the money would result in a major financial loss for the company.')">Process the wire transfer as requested</button>
+  <button class="btn-choice" onclick="alert('✅ Correct! This is a whaling attack, targeting a high-value employee. You must always verify such unusual, high-stakes requests through a different communication channel, like a direct phone call to the CEO.'); proceedToNextLevel();">Call the CEO on her mobile to verbally confirm</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+===== whph.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 11: Waterhole Phishing</title>
+  <script src="cookie.js"></script>
+  <script src="game.js"></script>
+  <link rel="stylesheet" href="level-style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="corporate-theme" onload="checkLogin(); updateProgressBar();">
+<div class="container">
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <h2>Level 11: Waterhole Phishing</h2>
+  <p>You're an avid bird watcher and frequently visit a small, popular forum called "UKBirdSightings.org" to share photos. Today, when you visit the site, a pop-up appears stating that to view the new high-resolution gallery, you need to install a special 'Image Viewer' plugin.</p>
+  <div class="scenario-box">
+    <p><b>Website Pop-up:</b> "This website has been updated! Please install the new Media Viewer Codec to continue. [Download Now]"</p>
+  </div>
+  <div class="button-container">
+  <button class="btn-choice" onclick="alert('Wrong! This is a waterhole attack. Hackers compromised a niche website they know a specific group of people will visit. The download is malware disguised as a legitimate plugin.')">Download and install the plugin</button>
+  <button class="btn-choice" onclick="alert('Correct! Unsolicited software downloads, even on trusted sites, are a major risk. The site may have been compromised. You should never install software from a pop-up prompt.'); proceedToNextLevel();">Close the pop-up and leave the site</button>
+  </div>
+  <a href="menu.html">Back to Menu</a>
+  </div>
+</body>
+</html>
+
+
+
+===== public\app.css =====
+:root {
+  --bg: #f3f6f1;
+  --panel: #ffffff;
+  --ink: #152122;
+  --muted: #516265;
+  --primary: #0f766e;
+  --primary-strong: #0a4f4a;
+  --accent: #f59e0b;
+  --danger: #b91c1c;
+  --line: #d8dfd9;
+  --ok-bg: #def7e8;
+  --ok-ink: #14532d;
+  --bad-bg: #fee2e2;
+  --bad-ink: #7f1d1d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: radial-gradient(circle at 10% 10%, #dbf0ec 0%, #f3f6f1 45%, #e9f0f6 100%);
+  font-family: "Space Grotesk", sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.background-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glow-a {
+  background: #11a79b;
+  top: -90px;
+  left: -60px;
+}
+
+.glow-b {
+  background: #f59e0b;
+  right: -80px;
+  bottom: -120px;
+}
+
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1, h2, h3 {
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+}
+
+h2 {
+  font-size: 1.45rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.panel {
+  background: linear-gradient(165deg, #ffffff 0%, #fbfffd 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 16px 35px rgba(13, 49, 49, 0.08);
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 14px;
+}
+
+.stack {
+  display: grid;
+  gap: 8px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.stat-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #f9fcfb;
+}
+
+.stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 3px;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", monospace;
+  color: #334346;
+}
+
+label {
+  font-size: 0.9rem;
+  color: #304446;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #b9c6c3;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #90d4cc;
+  outline-offset: 1px;
+}
+
+button, .fake-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font: inherit;
+  font-weight: 600;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+button:hover, .fake-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.97);
+}
+
+.ghost {
+  background: #edf7f6;
+  color: #143434;
+  border: 1px solid #c8ddda;
+}
+
+.danger {
+  background: var(--danger);
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+
+.mode-card {
+  background: linear-gradient(135deg, #e2f6f3 0%, #ecf8ff 100%);
+  color: #123333;
+  border: 1px solid #c3dedb;
+  text-align: left;
+}
+
+.mode-title {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.mode-sub {
+  display: block;
+  font-size: 0.86rem;
+  color: #3e5255;
+  font-weight: 500;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.achievement {
+  border: 1px solid #b6e1d8;
+  border-radius: 12px;
+  padding: 10px;
+  background: #e8fbf6;
+}
+
+.achievement h4 {
+  margin: 0 0 6px;
+}
+
+.achievement p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.achievement.locked {
+  border-color: #d8dfd9;
+  background: #f5f7f6;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 8px;
+  font-size: 0.92rem;
+}
+
+th {
+  color: #294143;
+}
+
+.session-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.timer-box {
+  min-width: 84px;
+  border: 1px solid #cde6df;
+  border-radius: 10px;
+  background: #f0faf8;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.progress-track {
+  margin: 12px 0 6px;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #e2ebe9;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #0ea5a1, #f59e0b);
+  transition: width 0.2s ease;
+}
+
+.scenario-card {
+  border: 1px solid #cfd8d6;
+  border-radius: 12px;
+  padding: 14px;
+  background: #f8fcfb;
+  margin: 14px 0;
+}
+
+blockquote {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 4px solid var(--primary);
+  background: #ecf7f5;
+  color: #244244;
+}
+
+.choice-btn {
+  width: 100%;
+  text-align: left;
+  background: #edf4f3;
+  color: #253b3d;
+  border: 1px solid #cad8d5;
+  margin-bottom: 8px;
+}
+
+.choice-btn:disabled {
+  opacity: 0.95;
+  cursor: default;
+}
+
+.choice-correct {
+  background: var(--ok-bg);
+  border-color: #92d4ad;
+  color: var(--ok-ink);
+}
+
+.choice-wrong {
+  background: var(--bad-bg);
+  border-color: #f2a6a6;
+  color: var(--bad-ink);
+}
+
+.feedback {
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #c6dbd7;
+  background: #eef8f7;
+  margin-bottom: 12px;
+}
+
+.feedback.ok {
+  border-color: #9ad7b1;
+  background: var(--ok-bg);
+}
+
+.feedback.bad {
+  border-color: #f0b2b2;
+  background: var(--bad-bg);
+}
+
+.feedback h4 {
+  margin: 0 0 6px;
+}
+
+.feedback p {
+  margin: 0;
+  color: #233739;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-row input {
+  width: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 860px) {
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+===== public\app.js =====
+(function () {
+  "use strict";
+
+  const STORAGE_KEY = "aegisphish_lab_state_v1";
+  const USER_ID_KEY = "aegisphish_user_id";
+  const API_TIMEOUT_MS = 4000;
+  const ACHIEVEMENTS = [
+    { id: "first_correct", title: "First Catch", description: "Answer one scenario correctly.", check: (s) => s.stats.correct >= 1 },
+    { id: "streak_5", title: "Sharp Eye", description: "Reach a 5-answer correct streak.", check: (s) => s.stats.bestStreak >= 5 },
+    { id: "score_1000", title: "Threat Hunter", description: "Reach 1000 total score.", check: (s) => s.stats.score >= 1000 },
+    { id: "complete_10", title: "Halfway Guardian", description: "Complete 10 unique scenarios.", check: (s) => s.stats.completedIds.length >= 10 },
+    { id: "complete_all", title: "Lab Master", description: "Complete all 20 scenarios.", check: (s) => s.stats.completedIds.length >= SCENARIOS.length }
+  ];
+
+  const SCENARIOS = [
+    {
+      id: "social_engineering",
+      title: "Social Engineering Call",
+      type: "Voice Fraud",
+      difficulty: 1,
+      prompt: "Someone claiming to be IT asks for your password to fix a critical issue.",
+      message: "\"We detected malware on your account. Share your password now so we can secure your system.\"",
+      options: [
+        { text: "Share password to resolve quickly", safe: false, explanation: "Legitimate IT teams never request your password directly." },
+        { text: "Refuse and call official IT helpdesk", safe: true, explanation: "Using a verified internal number breaks attacker control." }
+      ]
+    },
+    {
+      id: "pharming",
+      title: "Pharming Portal",
+      type: "Website Attack",
+      difficulty: 2,
+      prompt: "Your bank page looks real but the URL is slightly different.",
+      message: "\"www.mybank-login-portal.com\" asks for your account credentials.",
+      options: [
+        { text: "Log in since branding looks correct", safe: false, explanation: "Attackers mimic visual design to harvest credentials." },
+        { text: "Close and visit the official bookmarked domain", safe: true, explanation: "Verifying the exact domain prevents domain spoofing." }
+      ]
+    },
+    {
+      id: "whaling",
+      title: "Executive Wire Request",
+      type: "Business Email Compromise",
+      difficulty: 3,
+      prompt: "A message from the CEO asks for immediate confidential wire transfer.",
+      message: "\"I am in a meeting. Process this transfer now and keep it private.\"",
+      options: [
+        { text: "Process transfer due to urgency", safe: false, explanation: "Urgency and secrecy are common BEC pressure tactics." },
+        { text: "Validate through a separate trusted channel", safe: true, explanation: "Out-of-band confirmation is required for high-risk transfers." }
+      ]
+    },
+    {
+      id: "website_spoof",
+      title: "Spoofed Shopfront",
+      type: "Retail Scam",
+      difficulty: 1,
+      prompt: "An unfamiliar store offers extreme discounts and asks card details.",
+      message: "\"90% off all products today only. Checkout now.\"",
+      options: [
+        { text: "Buy quickly before sale ends", safe: false, explanation: "Unrealistic offers are bait to steal payment data." },
+        { text: "Leave site and verify seller reputation", safe: true, explanation: "Cross-checking merchant trust prevents checkout fraud." }
+      ]
+    },
+    {
+      id: "spear_phishing",
+      title: "Targeted Conference Email",
+      type: "Spear Phishing",
+      difficulty: 3,
+      prompt: "HR email references your recent event and asks to log into a new portal.",
+      message: "\"Use this link to file your conference expenses now.\"",
+      options: [
+        { text: "Use link because context looks personal", safe: false, explanation: "Personal details increase believability, not authenticity." },
+        { text: "Use known internal portal directly", safe: true, explanation: "Manual navigation avoids credential capture pages." }
+      ]
+    },
+    {
+      id: "https_phishing",
+      title: "Padlock Trap",
+      type: "Credential Theft",
+      difficulty: 2,
+      prompt: "Page has HTTPS lock icon but domain is wrong.",
+      message: "\"Secure login for Dropbox account\" on an unrelated domain.",
+      options: [
+        { text: "Trust because HTTPS is present", safe: false, explanation: "HTTPS only secures transport; it does not validate business legitimacy." },
+        { text: "Reject due to mismatched domain", safe: true, explanation: "Domain validation is stronger than padlock-only trust." }
+      ]
+    },
+    {
+      id: "email_phishing",
+      title: "Delivery Failure Email",
+      type: "Email Scam",
+      difficulty: 1,
+      prompt: "Courier email with bad grammar claims a failed delivery and requests action.",
+      message: "\"Click to reschedule or your parcel will be returned today.\"",
+      options: [
+        { text: "Click link to avoid missing parcel", safe: false, explanation: "Urgent delivery pressure is a common phishing lure." },
+        { text: "Delete and verify via official courier app", safe: true, explanation: "Official app lookup prevents fake tracking pages." }
+      ]
+    },
+    {
+      id: "angler_phishing",
+      title: "Fake Support Reply",
+      type: "Social Media Fraud",
+      difficulty: 2,
+      prompt: "After posting complaint online, a similar account asks for passport details.",
+      message: "\"DM your booking reference and passport so we can compensate you now.\"",
+      options: [
+        { text: "DM requested personal details", safe: false, explanation: "Support impersonators mine complaints for direct data theft." },
+        { text: "Verify official account before sharing anything", safe: true, explanation: "Only verified channels should handle sensitive data." }
+      ]
+    },
+    {
+      id: "clone_phishing",
+      title: "Duplicate Order Email",
+      type: "Clone Phishing",
+      difficulty: 2,
+      prompt: "A second almost-identical order email appears with a changed link.",
+      message: "\"Updated tracking link. Click to view order status.\"",
+      options: [
+        { text: "Click new tracking link", safe: false, explanation: "Cloned emails replace links while preserving trusted formatting." },
+        { text: "Open retailer site manually", safe: true, explanation: "Direct website access defeats cloned-link manipulation." }
+      ]
+    },
+    {
+      id: "vishing",
+      title: "Tax Authority Robocall",
+      type: "Phone Scam",
+      difficulty: 1,
+      prompt: "Automated call threatens legal action unless immediate payment is made.",
+      message: "\"Press 1 now to avoid arrest and clear tax debt.\"",
+      options: [
+        { text: "Press 1 to settle issue quickly", safe: false, explanation: "Threatening legal urgency by phone is scam behavior." },
+        { text: "Hang up and verify with official tax channel", safe: true, explanation: "Independent verification neutralizes caller spoofing." }
+      ]
+    },
+    {
+      id: "waterhole",
+      title: "Compromised Niche Forum",
+      type: "Watering Hole",
+      difficulty: 3,
+      prompt: "Trusted hobby site requests plugin install through pop-up.",
+      message: "\"Install media codec to continue viewing the gallery.\"",
+      options: [
+        { text: "Install plugin from pop-up", safe: false, explanation: "Compromised legitimate sites can serve malware payloads." },
+        { text: "Decline and exit the page", safe: true, explanation: "Avoiding unsolicited downloads blocks execution risk." }
+      ]
+    },
+    {
+      id: "popup_scareware",
+      title: "Scareware Browser Alert",
+      type: "Malware Lure",
+      difficulty: 1,
+      prompt: "A dramatic pop-up claims your computer has multiple infections.",
+      message: "\"Critical alert. Click now for immediate virus removal.\"",
+      options: [
+        { text: "Run the fake scanner", safe: false, explanation: "Scareware exploits fear to install malware or fake products." },
+        { text: "Close the tab safely", safe: true, explanation: "Browser pages cannot run trusted endpoint scans by default." }
+      ]
+    },
+    {
+      id: "deceptive_billing",
+      title: "Subscription Billing Notice",
+      type: "Deceptive Phishing",
+      difficulty: 2,
+      prompt: "Streaming service email says payment failed and asks for card update.",
+      message: "\"Update billing now or account will be suspended.\"",
+      options: [
+        { text: "Use email link to update card", safe: false, explanation: "Billing panic can redirect users to fake payment portals." },
+        { text: "Open official app and check billing there", safe: true, explanation: "Direct account access avoids fake payment forms." }
+      ]
+    },
+    {
+      id: "evil_twin_wifi",
+      title: "Evil Twin Wi-Fi",
+      type: "Network Attack",
+      difficulty: 4,
+      prompt: "Airport Wi-Fi login asks for your personal email credentials.",
+      message: "\"Sign in with your primary mailbox to access free airport internet.\"",
+      options: [
+        { text: "Authenticate with mailbox account", safe: false, explanation: "Fake captive portals steal credentials on attacker-controlled APs." },
+        { text: "Disconnect and confirm official Wi-Fi SSID", safe: true, explanation: "SSID verification and caution prevent rogue AP compromise." }
+      ]
+    },
+    {
+      id: "search_ad_phish",
+      title: "Search Ad Poisoning",
+      type: "Search Engine Phishing",
+      difficulty: 2,
+      prompt: "Top sponsored result mimics government portal with similar domain.",
+      message: "\"Official tax refund login\" appears as an ad result.",
+      options: [
+        { text: "Click first sponsored result", safe: false, explanation: "Threat actors buy ads to outrank real services." },
+        { text: "Locate official domain in organic results", safe: true, explanation: "Domain authenticity is critical for government services." }
+      ]
+    },
+    {
+      id: "image_phishing",
+      title: "Image-Only Bank Email",
+      type: "Image Phishing",
+      difficulty: 2,
+      prompt: "Email contains only a clickable image that appears to be from your bank.",
+      message: "\"Security update required\" displayed as one full-image link.",
+      options: [
+        { text: "Click image to update security", safe: false, explanation: "Image-based emails can evade simple text filtering." },
+        { text: "Log in to bank through known official route", safe: true, explanation: "Independent access avoids concealed malicious URLs." }
+      ]
+    },
+    {
+      id: "smishing",
+      title: "Parcel Fee SMS",
+      type: "Smishing",
+      difficulty: 1,
+      prompt: "Text asks for a small redelivery payment through unknown link.",
+      message: "\"Pay 1.99 now to release your parcel.\"",
+      options: [
+        { text: "Pay fee from SMS link", safe: false, explanation: "Small payment requests are often used for broad data harvesting." },
+        { text: "Ignore text and use official courier site", safe: true, explanation: "Official courier channels are safer for shipment actions." }
+      ]
+    },
+    {
+      id: "domain_typosquat",
+      title: "Typosquatted Sender Domain",
+      type: "Domain Phishing",
+      difficulty: 3,
+      prompt: "Security email is from microsft-support.com and requests immediate verification.",
+      message: "\"Your account is under attack, verify at once.\"",
+      options: [
+        { text: "Trust it because brand name is close", safe: false, explanation: "Typosquatting relies on visual similarity to trick recipients." },
+        { text: "Reject due to domain misspelling", safe: true, explanation: "Domain precision is a high-confidence validation check." }
+      ]
+    },
+    {
+      id: "mitm_certificate",
+      title: "Certificate Warning",
+      type: "MITM Attack",
+      difficulty: 4,
+      prompt: "Browser warns of invalid certificate on a banking login page at public Wi-Fi.",
+      message: "\"Connection is not private. Attackers might steal your information.\"",
+      options: [
+        { text: "Proceed anyway to continue login", safe: false, explanation: "Certificate interception warnings indicate active trust compromise." },
+        { text: "Disconnect and switch to trusted network", safe: true, explanation: "Never bypass certificate errors on sensitive services." }
+      ]
+    },
+    {
+      id: "social_media_hijack",
+      title: "Compromised Friend Message",
+      type: "Social Media Phishing",
+      difficulty: 2,
+      prompt: "Friend sends out-of-character link saying it is a private video.",
+      message: "\"Is this you in this clip? login here.\"",
+      options: [
+        { text: "Open and sign in through provided link", safe: false, explanation: "Account takeover campaigns spread through trusted contact lists." },
+        { text: "Verify with friend through another channel", safe: true, explanation: "Cross-channel confirmation detects hijacked accounts quickly." }
+      ]
+    }
+  ];
+
+  let state = loadState();
+  let apiAvailable = false;
+  let timerHandle = null;
+
+  const el = {
+    authView: document.getElementById("authView"),
+    dashboardView: document.getElementById("dashboardView"),
+    sessionView: document.getElementById("sessionView"),
+    loginForm: document.getElementById("loginForm"),
+    usernameInput: document.getElementById("usernameInput"),
+    logoutBtn: document.getElementById("logoutBtn"),
+    welcomeText: document.getElementById("welcomeText"),
+    summaryText: document.getElementById("summaryText"),
+    scoreStat: document.getElementById("scoreStat"),
+    accuracyStat: document.getElementById("accuracyStat"),
+    streakStat: document.getElementById("streakStat"),
+    completedStat: document.getElementById("completedStat"),
+    timerToggle: document.getElementById("timerToggle"),
+    timePerQuestion: document.getElementById("timePerQuestion"),
+    startLearningBtn: document.getElementById("startLearningBtn"),
+    startChallengeBtn: document.getElementById("startChallengeBtn"),
+    continueBtn: document.getElementById("continueBtn"),
+    continueHint: document.getElementById("continueHint"),
+    resetProgressBtn: document.getElementById("resetProgressBtn"),
+    exportBtn: document.getElementById("exportBtn"),
+    importInput: document.getElementById("importInput"),
+    achievementList: document.getElementById("achievementList"),
+    libraryBody: document.getElementById("libraryBody"),
+    sessionMode: document.getElementById("sessionMode"),
+    scenarioTitle: document.getElementById("scenarioTitle"),
+    timerBox: document.getElementById("timerBox"),
+    timerValue: document.getElementById("timerValue"),
+    sessionProgressBar: document.getElementById("sessionProgressBar"),
+    sessionCounter: document.getElementById("sessionCounter"),
+    scenarioPrompt: document.getElementById("scenarioPrompt"),
+    scenarioMessage: document.getElementById("scenarioMessage"),
+    optionContainer: document.getElementById("optionContainer"),
+    feedbackPanel: document.getElementById("feedbackPanel"),
+    feedbackTitle: document.getElementById("feedbackTitle"),
+    feedbackBody: document.getElementById("feedbackBody"),
+    nextBtn: document.getElementById("nextBtn"),
+    endSessionBtn: document.getElementById("endSessionBtn"),
+    achievementTemplate: document.getElementById("achievementTemplate")
+  };
+
+  bindEvents();
+  bootstrap();
+
+  function getDefaultState() {
+    return {
+      profile: null,
+      settings: {
+        timerEnabled: true,
+        timePerQuestion: 35
+      },
+      stats: {
+        answered: 0,
+        correct: 0,
+        score: 0,
+        streak: 0,
+        bestStreak: 0,
+        completedIds: []
+      },
+      achievements: [],
+      history: [],
+      session: null
+    };
+  }
+
+  function loadState() {
+    const fallback = getDefaultState();
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        return fallback;
+      }
+      const parsed = JSON.parse(raw);
+      return {
+        ...fallback,
+        ...parsed,
+        settings: { ...fallback.settings, ...(parsed.settings || {}) },
+        stats: { ...fallback.stats, ...(parsed.stats || {}) },
+        achievements: Array.isArray(parsed.achievements) ? parsed.achievements : [],
+        history: Array.isArray(parsed.history) ? parsed.history : []
+      };
+    } catch (error) {
+      return fallback;
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    if (apiAvailable && getUserId()) {
+      saveStateToServer();
+    }
+  }
+
+  function bindEvents() {
+    el.loginForm.addEventListener("submit", onLogin);
+    el.logoutBtn.addEventListener("click", onLogout);
+    el.startLearningBtn.addEventListener("click", () => startSession("learning"));
+    el.startChallengeBtn.addEventListener("click", () => startSession("challenge"));
+    el.continueBtn.addEventListener("click", onContinueSession);
+    el.nextBtn.addEventListener("click", moveToNextScenario);
+    el.endSessionBtn.addEventListener("click", endSessionEarly);
+    el.resetProgressBtn.addEventListener("click", resetProgress);
+    el.exportBtn.addEventListener("click", exportProgress);
+    el.importInput.addEventListener("change", importProgress);
+    el.timerToggle.addEventListener("change", updateSettingsFromForm);
+    el.timePerQuestion.addEventListener("change", updateSettingsFromForm);
+    el.libraryBody.addEventListener("click", onLibraryAction);
+    window.addEventListener("keydown", onKeyControls);
+  }
+
+  async function onLogin(event) {
+    event.preventDefault();
+    const name = (el.usernameInput.value || "").trim();
+    if (!name) {
+      window.alert("Please enter your analyst name.");
+      return;
+    }
+    if (apiAvailable) {
+      const result = await apiLogin(name);
+      if (result && result.userId) {
+        setUserId(result.userId);
+        if (result.state) {
+          state = loadImportedState(result.state);
+        }
+        state.profile = { name };
+        saveState();
+        syncUI();
+        return;
+      }
+    }
+    state.profile = { name };
+    saveState();
+    syncUI();
+  }
+
+  function onLogout() {
+    clearTimer();
+    state.profile = null;
+    state.session = null;
+    clearUserId();
+    saveState();
+    syncUI();
+  }
+
+  function onContinueSession() {
+    if (!state.session) {
+      window.alert("No active session found.");
+      return;
+    }
+    showSession();
+    renderScenario();
+  }
+
+  function updateSettingsFromForm() {
+    const seconds = Number(el.timePerQuestion.value);
+    state.settings.timerEnabled = Boolean(el.timerToggle.checked);
+    state.settings.timePerQuestion = Number.isFinite(seconds) ? clamp(seconds, 10, 120) : 35;
+    el.timePerQuestion.value = String(state.settings.timePerQuestion);
+    saveState();
+  }
+
+  function startSession(mode, singleScenarioId) {
+    const queue = buildQueue(mode, singleScenarioId);
+    if (!queue.length) {
+      window.alert("No scenarios available.");
+      return;
+    }
+
+    clearTimer();
+    state.session = {
+      mode,
+      queue,
+      currentIndex: 0,
+      answered: {},
+      startedAt: Date.now(),
+      currentTimer: state.settings.timePerQuestion
+    };
+
+    saveState();
+    showSession();
+    renderScenario();
+  }
+
+  function buildQueue(mode, singleScenarioId) {
+    if (singleScenarioId) {
+      return [singleScenarioId];
+    }
+    if (mode === "challenge") {
+      return shuffle(SCENARIOS.map((s) => s.id)).slice(0, 10);
+    }
+    return SCENARIOS.map((s) => s.id);
+  }
+
+  function showSession() {
+    el.authView.classList.add("hidden");
+    el.dashboardView.classList.add("hidden");
+    el.sessionView.classList.remove("hidden");
+    el.logoutBtn.classList.remove("hidden");
+  }
+
+  function showDashboard() {
+    el.authView.classList.add("hidden");
+    el.dashboardView.classList.remove("hidden");
+    el.sessionView.classList.add("hidden");
+    el.logoutBtn.classList.remove("hidden");
+  }
+
+  function renderScenario() {
+    if (!state.session) {
+      syncUI();
+      return;
+    }
+    const session = state.session;
+    const scenarioId = session.queue[session.currentIndex];
+    const scenario = getScenarioById(scenarioId);
+    if (!scenario) {
+      endSession();
+      return;
+    }
+
+    el.sessionMode.textContent = session.mode === "challenge" ? "Rapid Challenge" : "Guided Learning";
+    el.scenarioTitle.textContent = scenario.title;
+    el.scenarioPrompt.textContent = scenario.prompt;
+    el.scenarioMessage.textContent = scenario.message;
+    el.sessionCounter.textContent = `Scenario ${session.currentIndex + 1}/${session.queue.length}`;
+    el.sessionProgressBar.style.width = `${((session.currentIndex + 1) / session.queue.length) * 100}%`;
+    el.optionContainer.innerHTML = "";
+    el.feedbackPanel.classList.add("hidden");
+    el.nextBtn.classList.add("hidden");
+
+    scenario.options.forEach((option, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice-btn";
+      btn.textContent = `${idx + 1}. ${option.text}`;
+      btn.dataset.optionIndex = String(idx);
+      btn.addEventListener("click", () => handleAnswer(idx));
+      el.optionContainer.appendChild(btn);
+    });
+
+    applyTimerRules();
+    saveState();
+  }
+
+  function applyTimerRules() {
+    clearTimer();
+    const useTimer = state.settings.timerEnabled || state.session.mode === "challenge";
+    if (!useTimer) {
+      el.timerBox.classList.add("hidden");
+      return;
+    }
+    el.timerBox.classList.remove("hidden");
+    state.session.currentTimer = state.settings.timePerQuestion;
+    el.timerValue.textContent = String(state.session.currentTimer);
+    timerHandle = window.setInterval(() => {
+      if (!state.session) {
+        clearTimer();
+        return;
+      }
+      state.session.currentTimer -= 1;
+      el.timerValue.textContent = String(state.session.currentTimer);
+      if (state.session.currentTimer <= 0) {
+        clearTimer();
+        forceTimeoutAnswer();
+      }
+    }, 1000);
+  }
+
+  function forceTimeoutAnswer() {
+    const scenario = getCurrentScenario();
+    if (!scenario) {
+      return;
+    }
+    const wrongIndex = scenario.options.findIndex((opt) => !opt.safe);
+    const index = wrongIndex >= 0 ? wrongIndex : 0;
+    handleAnswer(index, true);
+  }
+
+  function handleAnswer(optionIndex, timedOut) {
+    const scenario = getCurrentScenario();
+    if (!scenario || !state.session) {
+      return;
+    }
+    const answerKey = `${state.session.currentIndex}`;
+    if (state.session.answered[answerKey]) {
+      return;
+    }
+
+    clearTimer();
+    const option = scenario.options[optionIndex];
+    const isCorrect = Boolean(option && option.safe);
+    const points = isCorrect ? (100 + scenario.difficulty * 25) : -20;
+    state.stats.answered += 1;
+    state.stats.score = Math.max(0, state.stats.score + points);
+    state.stats.streak = isCorrect ? state.stats.streak + 1 : 0;
+    state.stats.bestStreak = Math.max(state.stats.bestStreak, state.stats.streak);
+    if (isCorrect) {
+      state.stats.correct += 1;
+      if (!state.stats.completedIds.includes(scenario.id)) {
+        state.stats.completedIds.push(scenario.id);
+      }
+    }
+
+    state.history.unshift({
+      timestamp: new Date().toISOString(),
+      scenarioId: scenario.id,
+      result: isCorrect ? "correct" : "incorrect",
+      mode: state.session.mode,
+      timedOut: Boolean(timedOut)
+    });
+    state.history = state.history.slice(0, 100);
+
+    state.session.answered[answerKey] = true;
+    el.feedbackPanel.classList.remove("hidden");
+    el.feedbackPanel.classList.toggle("ok", isCorrect);
+    el.feedbackPanel.classList.toggle("bad", !isCorrect);
+    el.feedbackTitle.textContent = isCorrect ? "Correct Decision" : "Risky Decision";
+    el.feedbackBody.textContent = timedOut
+      ? `Time expired. ${option.explanation}`
+      : option.explanation;
+
+    const choiceButtons = el.optionContainer.querySelectorAll(".choice-btn");
+    choiceButtons.forEach((button, idx) => {
+      button.disabled = true;
+      if (idx === optionIndex) {
+        button.classList.add(isCorrect ? "choice-correct" : "choice-wrong");
+      }
+    });
+
+    updateAchievements();
+    saveState();
+    el.nextBtn.classList.remove("hidden");
+    refreshDashboardData();
+  }
+
+  function moveToNextScenario() {
+    if (!state.session) {
+      return;
+    }
+    state.session.currentIndex += 1;
+    if (state.session.currentIndex >= state.session.queue.length) {
+      endSession();
+      return;
+    }
+    renderScenario();
+  }
+
+  function endSessionEarly() {
+    if (!state.session) {
+      return;
+    }
+    const confirmed = window.confirm("End this session and return to dashboard?");
+    if (!confirmed) {
+      return;
+    }
+    endSession();
+  }
+
+  function endSession() {
+    clearTimer();
+    state.session = null;
+    saveState();
+    syncUI();
+  }
+
+  function resetProgress() {
+    const confirmed = window.confirm("This will erase your score, achievements, and history. Continue?");
+    if (!confirmed) {
+      return;
+    }
+    const name = state.profile ? state.profile.name : null;
+    const fresh = getDefaultState();
+    if (name) {
+      fresh.profile = { name };
+    }
+    Object.assign(state, fresh);
+    saveState();
+    syncUI();
+  }
+
+  function exportProgress() {
+    const payload = JSON.stringify(state, null, 2);
+    const blob = new Blob([payload], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "aegisphish-progress.json";
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importProgress(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(String(reader.result || "{}"));
+        const safe = loadImportedState(imported);
+        Object.assign(state, safe);
+        saveState();
+        syncUI();
+        window.alert("Progress imported.");
+      } catch (error) {
+        window.alert("Import failed. Invalid JSON format.");
+      } finally {
+        el.importInput.value = "";
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function loadImportedState(imported) {
+    const fallback = getDefaultState();
+    return {
+      ...fallback,
+      ...imported,
+      settings: { ...fallback.settings, ...(imported.settings || {}) },
+      stats: {
+        ...fallback.stats,
+        ...(imported.stats || {}),
+        completedIds: Array.isArray(imported.stats && imported.stats.completedIds)
+          ? imported.stats.completedIds.filter((id) => SCENARIOS.some((s) => s.id === id))
+          : []
+      },
+      achievements: Array.isArray(imported.achievements) ? imported.achievements : [],
+      history: Array.isArray(imported.history) ? imported.history.slice(0, 100) : [],
+      session: null
+    };
+  }
+
+  function onLibraryAction(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLButtonElement)) {
+      return;
+    }
+    const id = target.dataset.practiceId;
+    if (!id) {
+      return;
+    }
+    startSession("practice", id);
+  }
+
+  function onKeyControls(event) {
+    if (!state.session || el.sessionView.classList.contains("hidden")) {
+      return;
+    }
+    if (event.key === "1" || event.key === "2") {
+      const idx = Number(event.key) - 1;
+      handleAnswer(idx, false);
+    }
+    if (event.key.toLowerCase() === "n" && !el.nextBtn.classList.contains("hidden")) {
+      moveToNextScenario();
+    }
+  }
+
+  function updateAchievements() {
+    ACHIEVEMENTS.forEach((achievement) => {
+      const unlocked = state.achievements.includes(achievement.id);
+      if (!unlocked && achievement.check(state)) {
+        state.achievements.push(achievement.id);
+      }
+    });
+  }
+
+  function renderAchievements() {
+    el.achievementList.innerHTML = "";
+    ACHIEVEMENTS.forEach((achievement) => {
+      const item = el.achievementTemplate.content.firstElementChild.cloneNode(true);
+      const unlocked = state.achievements.includes(achievement.id);
+      item.classList.toggle("locked", !unlocked);
+      item.querySelector("h4").textContent = achievement.title;
+      item.querySelector("p").textContent = achievement.description;
+      el.achievementList.appendChild(item);
+    });
+  }
+
+  function renderLibrary() {
+    el.libraryBody.innerHTML = "";
+    const completed = new Set(state.stats.completedIds);
+    SCENARIOS.forEach((scenario) => {
+      const row = document.createElement("tr");
+      row.innerHTML = [
+        `<td>${escapeHtml(scenario.title)}</td>`,
+        `<td>${escapeHtml(scenario.type)}</td>`,
+        `<td>${scenario.difficulty}</td>`,
+        `<td>${completed.has(scenario.id) ? "Completed" : "Pending"}</td>`,
+        `<td><button type="button" data-practice-id="${scenario.id}">Practice</button></td>`
+      ].join("");
+      el.libraryBody.appendChild(row);
+    });
+  }
+
+  function refreshDashboardData() {
+    const answered = state.stats.answered;
+    const correct = state.stats.correct;
+    const accuracy = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+    el.welcomeText.textContent = `Welcome, ${state.profile ? state.profile.name : "Analyst"}`;
+    el.summaryText.textContent = "Analyze, decide, and build resilience against phishing campaigns.";
+    el.scoreStat.textContent = String(state.stats.score);
+    el.accuracyStat.textContent = `${accuracy}%`;
+    el.streakStat.textContent = String(state.stats.bestStreak);
+    el.completedStat.textContent = `${state.stats.completedIds.length}/${SCENARIOS.length}`;
+    el.continueHint.textContent = state.session
+      ? `${state.session.mode} - scenario ${state.session.currentIndex + 1}/${state.session.queue.length}`
+      : "No active session";
+    el.timerToggle.checked = Boolean(state.settings.timerEnabled);
+    el.timePerQuestion.value = String(state.settings.timePerQuestion);
+  }
+
+  function syncUI() {
+    clearTimer();
+    if (!state.profile) {
+      el.authView.classList.remove("hidden");
+      el.dashboardView.classList.add("hidden");
+      el.sessionView.classList.add("hidden");
+      el.logoutBtn.classList.add("hidden");
+      return;
+    }
+    refreshDashboardData();
+    renderAchievements();
+    renderLibrary();
+    showDashboard();
+  }
+
+  function getCurrentScenario() {
+    if (!state.session) {
+      return null;
+    }
+    return getScenarioById(state.session.queue[state.session.currentIndex]);
+  }
+
+  function getScenarioById(id) {
+    return SCENARIOS.find((s) => s.id === id) || null;
+  }
+
+  function clearTimer() {
+    if (timerHandle) {
+      window.clearInterval(timerHandle);
+      timerHandle = null;
+    }
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function shuffle(values) {
+    const arr = values.slice();
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return arr;
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  async function bootstrap() {
+    apiAvailable = await checkApiHealth();
+    if (apiAvailable) {
+      const userId = getUserId();
+      if (userId) {
+        const serverState = await loadStateFromServer();
+        if (serverState) {
+          state = loadImportedState(serverState);
+        }
+      }
+    }
+    syncUI();
+  }
+
+  function getUserId() {
+    return localStorage.getItem(USER_ID_KEY);
+  }
+
+  function setUserId(id) {
+    localStorage.setItem(USER_ID_KEY, id);
+  }
+
+  function clearUserId() {
+    localStorage.removeItem(USER_ID_KEY);
+  }
+
+  async function checkApiHealth() {
+    try {
+      const result = await apiRequest("/api/health", { method: "GET" });
+      return Boolean(result && result.ok);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async function apiLogin(name) {
+    try {
+      return await apiRequest("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ name })
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function loadStateFromServer() {
+    const userId = getUserId();
+    if (!userId) {
+      return null;
+    }
+    try {
+      return await apiRequest("/api/state", {
+        method: "GET",
+        headers: {
+          "x-user-id": userId
+        }
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function saveStateToServer() {
+    const userId = getUserId();
+    if (!userId) {
+      return;
+    }
+    try {
+      await apiRequest("/api/state", {
+        method: "POST",
+        headers: {
+          "x-user-id": userId
+        },
+        body: JSON.stringify(state)
+      });
+    } catch (error) {
+      return;
+    }
+  }
+
+  async function apiRequest(path, options) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    try {
+      const response = await fetch(path, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...(options && options.headers ? options.headers : {})
+        },
+        signal: controller.signal
+      });
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+      return await response.json();
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  }
+})();
+
+
+
+===== public\index.html =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AegisPhish Lab</title>
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="AegisPhish">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="background-glow glow-a"></div>
+  <div class="background-glow glow-b"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Anti-Phishing Training Platform</p>
+        <h1>AegisPhish Lab</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="logoutBtn" class="ghost hidden" type="button">Logout</button>
+      </div>
+    </header>
+
+    <section id="authView" class="panel">
+      <h2>Welcome</h2>
+      <p>Train with realistic phishing simulations inspired by enterprise platforms, redesigned as a standalone app with modern features.</p>
+      <form id="loginForm" class="stack">
+        <label for="usernameInput">Analyst Name</label>
+        <input id="usernameInput" maxlength="40" placeholder="Enter your name" required>
+        <button type="submit">Enter Lab</button>
+      </form>
+    </section>
+
+    <section id="dashboardView" class="hidden">
+      <div class="grid-two">
+        <article class="panel">
+          <h2 id="welcomeText">Welcome</h2>
+          <p id="summaryText">Track your progress, sharpen threat detection, and push your score.</p>
+          <div class="stats">
+            <div class="stat-card">
+              <span class="stat-label">Score</span>
+              <strong id="scoreStat">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Accuracy</span>
+              <strong id="accuracyStat">0%</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Best Streak</span>
+              <strong id="streakStat">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Completed</span>
+              <strong id="completedStat">0/20</strong>
+            </div>
+          </div>
+          <div class="stack">
+            <label class="toggle-row">
+              <input id="timerToggle" type="checkbox" checked>
+              <span>Enable per-scenario timer</span>
+            </label>
+            <label for="timePerQuestion" class="mono">Time per scenario (seconds)</label>
+            <input id="timePerQuestion" type="number" min="10" max="120" value="35">
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Modes</h3>
+          <div class="mode-grid">
+            <button id="startLearningBtn" class="mode-card" type="button">
+              <span class="mode-title">Guided Learning</span>
+              <span class="mode-sub">20 ordered scenarios with feedback</span>
+            </button>
+            <button id="startChallengeBtn" class="mode-card" type="button">
+              <span class="mode-title">Rapid Challenge</span>
+              <span class="mode-sub">10 random timed scenarios</span>
+            </button>
+            <button id="continueBtn" class="mode-card" type="button">
+              <span class="mode-title">Continue Session</span>
+              <span class="mode-sub" id="continueHint">No active session</span>
+            </button>
+          </div>
+          <div class="button-row">
+            <button id="resetProgressBtn" class="danger" type="button">Reset Progress</button>
+            <button id="exportBtn" class="ghost" type="button">Export Progress</button>
+            <label for="importInput" class="ghost fake-button">Import Progress</label>
+            <input id="importInput" type="file" accept=".json" class="hidden">
+          </div>
+        </article>
+      </div>
+
+      <article class="panel">
+        <h3>Achievements</h3>
+        <div id="achievementList" class="achievement-grid"></div>
+      </article>
+
+      <article class="panel">
+        <h3>Scenario Library</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Type</th>
+                <th>Difficulty</th>
+                <th>Status</th>
+                <th>Practice</th>
+              </tr>
+            </thead>
+            <tbody id="libraryBody"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="sessionView" class="hidden">
+      <article class="panel">
+        <div class="session-head">
+          <div>
+            <p class="eyebrow" id="sessionMode">Mode</p>
+            <h2 id="scenarioTitle">Scenario</h2>
+          </div>
+          <div class="timer-box" id="timerBox">
+            <span class="mono">Time</span>
+            <strong id="timerValue">--</strong>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="sessionProgressBar" class="progress-fill"></div>
+        </div>
+        <p class="mono" id="sessionCounter">Scenario 1/1</p>
+
+        <div class="scenario-card">
+          <p id="scenarioPrompt"></p>
+          <blockquote id="scenarioMessage"></blockquote>
+        </div>
+
+        <div id="optionContainer" class="stack"></div>
+
+        <div id="feedbackPanel" class="feedback hidden">
+          <h4 id="feedbackTitle">Feedback</h4>
+          <p id="feedbackBody"></p>
+        </div>
+
+        <div class="button-row">
+          <button id="nextBtn" class="hidden" type="button">Next Scenario</button>
+          <button id="endSessionBtn" class="ghost" type="button">End Session</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <template id="achievementTemplate">
+    <article class="achievement locked">
+      <h4></h4>
+      <p></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js");
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+===== public\manifest.json =====
+{
+  "name": "AegisPhish Lab",
+  "short_name": "AegisPhish",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f3f6f1",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
+
+
+
+===== public\sw.js =====
+const CACHE_NAME = "aegisphish-cache-v1";
+const ASSETS = [
+  ".",
+  "index.html",
+  "app.css",
+  "app.js",
+  "manifest.json",
+  "icon-180.png",
+  "icon.svg",
+  "icon-maskable.svg"
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+    )
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  if (request.method !== "GET") {
+    return;
+  }
+  event.respondWith(
+    caches.match(request).then((cached) => cached || fetch(request))
+  );
+});
+
+
+
