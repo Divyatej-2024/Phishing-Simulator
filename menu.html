@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <title>Phishing Simulator - Menu</title>
   <script src="cookie.js"></script>
+  <script src="game.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkLogin(); displayUsername();">
+<body onload="checkLogin(); displayUsername(); renderMenuProgress();">
   <div class="container">
-    <h2 id="welcome-message">Welcome !</h2><h3>Choose a Level</h3>
+    <h2 id="welcome-message">Welcome!</h2>
+    <p id="menu-summary">Progress: 0/20 levels completed</p>
+    <div class="button-container">
+      <a id="resume-link" href="soceng.html">Resume Training</a>
+      <button class="btn-logout" onclick="confirmResetGameProgress()">Reset Progress</button>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+    <h3>Choose a Level</h3>
     <a href="soceng.html" class="menu-link">Social Engineering</a>
     <a href="phar.html" class="menu-link">Pharming</a>
     <a href="whl.html" class="menu-link">Whaling</a>

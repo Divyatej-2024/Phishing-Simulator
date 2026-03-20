@@ -45,6 +45,11 @@ a:hover {
     font-size: 1.1em;
 }
 
+#menu-summary {
+  margin: 10px 0 20px;
+  color: #495057;
+}
+
 .scenario-box {
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
@@ -60,6 +65,7 @@ a:hover {
 
 .button-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
     margin: 25px 0;
@@ -81,6 +87,15 @@ button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.button-container a {
+  border: 1px solid #ced4da;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: #e9ecef;
+  color: #343a40;
+  font-weight: bold;
+}
+
 .btn-choice {
   background-color: #e9ecef;
   color: #343a40;
@@ -90,6 +105,34 @@ button:hover {
 .btn-logout {
     background-color: #e63946;
     color: white;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
+.status-complete {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
 }
 
 #progress-container {

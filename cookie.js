@@ -2,13 +2,17 @@
 
 function login(event) {
   event.preventDefault();
-  let user = document.getElementById("username").value;
-  document.cookie = "player=" + user + "; path=/";
+  let user = document.getElementById("username").value.trim();
+  if (!user) {
+    alert("Please enter a username.");
+    return;
+  }
+  document.cookie = "player=" + encodeURIComponent(user) + "; path=/; SameSite=Lax";
   window.location.href = "menu.html";
 }
 
 function checkLogin() {
-  if (!document.cookie.includes("player=")) {
+  if (!getUsername()) {
     alert("Please login first!");
     window.location.href = "index.html";
   }
@@ -27,7 +31,7 @@ function getUsername() {
     // Check if this cookie string begins with "player="
     if (cookie.startsWith('player=')) {
       // If it does, return the value after "player="
-      return cookie.substring('player='.length, cookie.length);
+      return decodeURIComponent(cookie.substring('player='.length, cookie.length));
     }
   }
   // Return null if the cookie wasn't found
