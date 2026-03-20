@@ -2,6 +2,8 @@
   "use strict";
 
   const STORAGE_KEY = "aegisphish_lab_state_v1";
+  const USER_ID_KEY = "aegisphish_user_id";
+  const API_TIMEOUT_MS = 4000;
   const ACHIEVEMENTS = [
     { id: "first_correct", title: "First Catch", description: "Answer one scenario correctly.", check: (s) => s.stats.correct >= 1 },
     { id: "streak_5", title: "Sharp Eye", description: "Reach a 5-answer correct streak.", check: (s) => s.stats.bestStreak >= 5 },
@@ -253,7 +255,8 @@
     }
   ];
 
-  const state = loadState();
+  let state = loadState();
+  let apiAvailable = false;
   let timerHandle = null;
 
   const el = {
@@ -298,7 +301,7 @@
   };
 
   bindEvents();
-  syncUI();
+  bootstrap();
 
   function getDefaultState() {
     return {
@@ -344,6 +347,9 @@
 
   function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    if (apiAvailable && getUserId()) {
+      saveStateToServer();
+    }
   }
 
   function bindEvents() {
@@ -363,12 +369,25 @@
     window.addEventListener("keydown", onKeyControls);
   }
 
-  function onLogin(event) {
+  async function onLogin(event) {
     event.preventDefault();
     const name = (el.usernameInput.value || "").trim();
     if (!name) {
       window.alert("Please enter your analyst name.");
       return;
+    }
+    if (apiAvailable) {
+      const result = await apiLogin(name);
+      if (result && result.userId) {
+        setUserId(result.userId);
+        if (result.state) {
+          state = loadImportedState(result.state);
+        }
+        state.profile = { name };
+        saveState();
+        syncUI();
+        return;
+      }
     }
     state.profile = { name };
     saveState();
@@ -379,6 +398,7 @@
     clearTimer();
     state.profile = null;
     state.session = null;
+    clearUserId();
     saveState();
     syncUI();
   }
@@ -806,5 +826,107 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  async function bootstrap() {
+    apiAvailable = await checkApiHealth();
+    if (apiAvailable) {
+      const userId = getUserId();
+      if (userId) {
+        const serverState = await loadStateFromServer();
+        if (serverState) {
+          state = loadImportedState(serverState);
+        }
+      }
+    }
+    syncUI();
+  }
+
+  function getUserId() {
+    return localStorage.getItem(USER_ID_KEY);
+  }
+
+  function setUserId(id) {
+    localStorage.setItem(USER_ID_KEY, id);
+  }
+
+  function clearUserId() {
+    localStorage.removeItem(USER_ID_KEY);
+  }
+
+  async function checkApiHealth() {
+    try {
+      const result = await apiRequest("/api/health", { method: "GET" });
+      return Boolean(result && result.ok);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async function apiLogin(name) {
+    try {
+      return await apiRequest("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ name })
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function loadStateFromServer() {
+    const userId = getUserId();
+    if (!userId) {
+      return null;
+    }
+    try {
+      return await apiRequest("/api/state", {
+        method: "GET",
+        headers: {
+          "x-user-id": userId
+        }
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function saveStateToServer() {
+    const userId = getUserId();
+    if (!userId) {
+      return;
+    }
+    try {
+      await apiRequest("/api/state", {
+        method: "POST",
+        headers: {
+          "x-user-id": userId
+        },
+        body: JSON.stringify(state)
+      });
+    } catch (error) {
+      return;
+    }
+  }
+
+  async function apiRequest(path, options) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    try {
+      const response = await fetch(path, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...(options && options.headers ? options.headers : {})
+        },
+        signal: controller.signal
+      });
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+      return await response.json();
+    } finally {
+      window.clearTimeout(timeout);
+    }
   }
 })();

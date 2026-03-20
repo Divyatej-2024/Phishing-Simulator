@@ -1,0 +1,26 @@
+{
+  "name": "AegisPhish Lab",
+  "short_name": "AegisPhish",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f3f6f1",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

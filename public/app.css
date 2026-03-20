@@ -24,6 +24,9 @@ body {
   color: var(--ink);
   background: radial-gradient(circle at 10% 10%, #dbf0ec 0%, #f3f6f1 45%, #e9f0f6 100%);
   font-family: "Space Grotesk", sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .background-glow {
@@ -167,6 +170,7 @@ button, .fake-button {
   cursor: pointer;
   transition: transform 0.15s ease, filter 0.15s ease;
   text-align: center;
+  touch-action: manipulation;
 }
 
 button:hover, .fake-button:hover {
